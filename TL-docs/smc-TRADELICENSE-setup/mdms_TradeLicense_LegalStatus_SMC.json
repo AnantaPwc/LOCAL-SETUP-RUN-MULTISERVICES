@@ -1,0 +1,26 @@
+{
+  "tenantId": "pg",
+  "moduleName": "TradeLicense",
+  "LegalStatus": [
+    {
+      "code": "OWNED",
+      "name": "Owned",
+      "active": true
+    },
+    {
+      "code": "RENTED",
+      "name": "Rented",
+      "active": true
+    },
+    {
+      "code": "LEASED",
+      "name": "Leased",
+      "active": true
+    },
+    {
+      "code": "OTHER",
+      "name": "Other",
+      "active": true
+    }
+  ]
+}

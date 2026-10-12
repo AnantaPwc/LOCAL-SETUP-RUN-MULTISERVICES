@@ -1,0 +1,821 @@
+{
+  "info": {
+    "name": "SMC Trade License - MDMS check",
+    "description": "Checks the MDMS masters used by the Sangamner trade license (TL_NEW / TTL_NEW).\n\nRun the whole collection (Runner) and read the Test Results. Switch baseUrl between local MDMS (http://localhost:8094) and the demo server (https://sangamner-demo.ddns.net). Folder \"Deferred\" is expected to fail until those masters are added.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8094"
+    },
+    {
+      "key": "stateTenant",
+      "value": "pg"
+    },
+    {
+      "key": "cityTenant",
+      "value": "pg.smc"
+    }
+  ],
+  "item": [
+    {
+      "name": "TL masters (ready)",
+      "item": [
+        {
+          "name": "00 MDMS is up (tenants)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "const res = (pm.response.json() || {}).MdmsRes || {};",
+                  "const list = (m, n) => (res[m] || {})[n] || [];",
+                  "pm.test('MDMS returned data (data folder loaded)', () => pm.expect(list('tenant','tenants').length).to.be.above(0));",
+                  "console.log('tenants:', list('tenant','tenants').map(t => t.code).join(', '));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {\n    \"apiId\": \"Rainmaker\",\n    \"ver\": \".01\",\n    \"ts\": \"\",\n    \"action\": \"_search\",\n    \"did\": \"1\",\n    \"key\": \"\",\n    \"msgId\": \"20170310130900|en_IN\"\n  },\n  \"MdmsCriteria\": {\n    \"tenantId\": \"{{stateTenant}}\",\n    \"moduleDetails\": [\n      {\n        \"moduleName\": \"tenant\",\n        \"masterDetails\": [\n          {\n            \"name\": \"tenants\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/egov-mdms-service/v1/_search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "egov-mdms-service",
+                "v1",
+                "_search"
+              ]
+            },
+            "description": "Quick health check: MDMS answers and has data loaded. An empty MdmsRes means the data folder was not read (check egov.mdms.conf.path and the startup log)."
+          }
+        },
+        {
+          "name": "01 TradeType: 53 SMC business types only",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "const res = (pm.response.json() || {}).MdmsRes || {};",
+                  "const list = (m, n) => (res[m] || {})[n] || [];",
+                  "const tt = list('TradeLicense','TradeType');",
+                  "pm.test('53 trade types', () => pm.expect(tt.length).to.eql(53));",
+                  "pm.test('all are SMC codes', () => pm.expect(tt.filter(t => !/\\.SMC-\\d{2}$/.test(t.code)).map(t => t.code)).to.eql([]));",
+                  "pm.test('no UOM (flat fee)', () => pm.expect(tt.filter(t => t.uom).map(t => t.code)).to.eql([]));",
+                  "console.log(tt.map(t => t.code + ' = ' + t.name).join('\\n'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {\n    \"apiId\": \"Rainmaker\",\n    \"ver\": \".01\",\n    \"ts\": \"\",\n    \"action\": \"_search\",\n    \"did\": \"1\",\n    \"key\": \"\",\n    \"msgId\": \"20170310130900|en_IN\"\n  },\n  \"MdmsCriteria\": {\n    \"tenantId\": \"{{stateTenant}}\",\n    \"moduleDetails\": [\n      {\n        \"moduleName\": \"TradeLicense\",\n        \"masterDetails\": [\n          {\n            \"name\": \"TradeType\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/egov-mdms-service/v1/_search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "egov-mdms-service",
+                "v1",
+                "_search"
+              ]
+            },
+            "description": "Annexure 1 business types. Expected: exactly 53, all codes ending .SMC-01 … .SMC-53."
+          }
+        },
+        {
+          "name": "02 StructureType: immovable + movable",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "const res = (pm.response.json() || {}).MdmsRes || {};",
+                  "const list = (m, n) => (res[m] || {})[n] || [];",
+                  "pm.test('TradeLicense.StructureType has IMMOVABLE.PUCCA', () => pm.expect(list('TradeLicense','StructureType').map(x => x.code)).to.include('IMMOVABLE.PUCCA'));",
+                  "pm.test('TradeLicense.StructureType has IMMOVABLE.KUTCHA', () => pm.expect(list('TradeLicense','StructureType').map(x => x.code)).to.include('IMMOVABLE.KUTCHA'));",
+                  "pm.test('TradeLicense.StructureType has MOVABLE.HANDCART', () => pm.expect(list('TradeLicense','StructureType').map(x => x.code)).to.include('MOVABLE.HANDCART'));",
+                  "pm.test('TradeLicense.StructureType has MOVABLE.VEHICLE', () => pm.expect(list('TradeLicense','StructureType').map(x => x.code)).to.include('MOVABLE.VEHICLE'));",
+                  "pm.test('TradeLicense.StructureType has MOVABLE.STALL', () => pm.expect(list('TradeLicense','StructureType').map(x => x.code)).to.include('MOVABLE.STALL'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {\n    \"apiId\": \"Rainmaker\",\n    \"ver\": \".01\",\n    \"ts\": \"\",\n    \"action\": \"_search\",\n    \"did\": \"1\",\n    \"key\": \"\",\n    \"msgId\": \"20170310130900|en_IN\"\n  },\n  \"MdmsCriteria\": {\n    \"tenantId\": \"{{stateTenant}}\",\n    \"moduleDetails\": [\n      {\n        \"moduleName\": \"TradeLicense\",\n        \"masterDetails\": [\n          {\n            \"name\": \"StructureType\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/egov-mdms-service/v1/_search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "egov-mdms-service",
+                "v1",
+                "_search"
+              ]
+            },
+            "description": "TradeLicense.StructureType (tl-services and tl-calculator read it from the TradeLicense module). Permanent uses IMMOVABLE.*, Temporary uses MOVABLE.* (hand cart, vehicle, stall)."
+          }
+        },
+        {
+          "name": "03 documentObj: SMC documents",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "const res = (pm.response.json() || {}).MdmsRes || {};",
+                  "const list = (m, n) => (res[m] || {})[n] || [];",
+                  "const docs = ((list('TradeLicense','documentObj')[0] || {}).allowedDocs || []).map(d => d.documentType);",
+                  "pm.test('document SEVENTWELVEEXTRACT', () => pm.expect(docs).to.include('SEVENTWELVEEXTRACT'));",
+                  "pm.test('document PROPERTYEXTRACT', () => pm.expect(docs).to.include('PROPERTYEXTRACT'));",
+                  "pm.test('document AADHAARCARD', () => pm.expect(docs).to.include('AADHAARCARD'));",
+                  "pm.test('document PROPERTYTAXRECEIPT', () => pm.expect(docs).to.include('PROPERTYTAXRECEIPT'));",
+                  "pm.test('document LANDOWNERCONSENT', () => pm.expect(docs).to.include('LANDOWNERCONSENT'));",
+                  "pm.test('document SHOPACTLICENSE', () => pm.expect(docs).to.include('SHOPACTLICENSE'));",
+                  "pm.test('document PREVIOUSLICENSE', () => pm.expect(docs).to.include('PREVIOUSLICENSE'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {\n    \"apiId\": \"Rainmaker\",\n    \"ver\": \".01\",\n    \"ts\": \"\",\n    \"action\": \"_search\",\n    \"did\": \"1\",\n    \"key\": \"\",\n    \"msgId\": \"20170310130900|en_IN\"\n  },\n  \"MdmsCriteria\": {\n    \"tenantId\": \"{{stateTenant}}\",\n    \"moduleDetails\": [\n      {\n        \"moduleName\": \"TradeLicense\",\n        \"masterDetails\": [\n          {\n            \"name\": \"documentObj\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/egov-mdms-service/v1/_search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "egov-mdms-service",
+                "v1",
+                "_search"
+              ]
+            },
+            "description": "Document list the TL UI shows for upload. Codes must match tl.smc.*.required.documents in tl-services."
+          }
+        },
+        {
+          "name": "04 LegalStatus: Owned / Rented / Leased / Other",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "const res = (pm.response.json() || {}).MdmsRes || {};",
+                  "const list = (m, n) => (res[m] || {})[n] || [];",
+                  "pm.test('TradeLicense.LegalStatus has OWNED', () => pm.expect(list('TradeLicense','LegalStatus').map(x => x.code)).to.include('OWNED'));",
+                  "pm.test('TradeLicense.LegalStatus has RENTED', () => pm.expect(list('TradeLicense','LegalStatus').map(x => x.code)).to.include('RENTED'));",
+                  "pm.test('TradeLicense.LegalStatus has LEASED', () => pm.expect(list('TradeLicense','LegalStatus').map(x => x.code)).to.include('LEASED'));",
+                  "pm.test('TradeLicense.LegalStatus has OTHER', () => pm.expect(list('TradeLicense','LegalStatus').map(x => x.code)).to.include('OTHER'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {\n    \"apiId\": \"Rainmaker\",\n    \"ver\": \".01\",\n    \"ts\": \"\",\n    \"action\": \"_search\",\n    \"did\": \"1\",\n    \"key\": \"\",\n    \"msgId\": \"20170310130900|en_IN\"\n  },\n  \"MdmsCriteria\": {\n    \"tenantId\": \"{{stateTenant}}\",\n    \"moduleDetails\": [\n      {\n        \"moduleName\": \"TradeLicense\",\n        \"masterDetails\": [\n          {\n            \"name\": \"LegalStatus\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/egov-mdms-service/v1/_search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "egov-mdms-service",
+                "v1",
+                "_search"
+              ]
+            },
+            "description": "New master for \"Legal status of business place\". Needs the LegalStatus entry in master-config.json."
+          }
+        },
+        {
+          "name": "05 OwnerShipCategory: Single owner / Partnership",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "const res = (pm.response.json() || {}).MdmsRes || {};",
+                  "const list = (m, n) => (res[m] || {})[n] || [];",
+                  "pm.test('common-masters.OwnerShipCategory has INDIVIDUAL.SINGLEOWNER', () => pm.expect(list('common-masters','OwnerShipCategory').map(x => x.code)).to.include('INDIVIDUAL.SINGLEOWNER'));",
+                  "pm.test('common-masters.OwnerShipCategory has INDIVIDUAL.MULTIPLEOWNERS', () => pm.expect(list('common-masters','OwnerShipCategory').map(x => x.code)).to.include('INDIVIDUAL.MULTIPLEOWNERS'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {\n    \"apiId\": \"Rainmaker\",\n    \"ver\": \".01\",\n    \"ts\": \"\",\n    \"action\": \"_search\",\n    \"did\": \"1\",\n    \"key\": \"\",\n    \"msgId\": \"20170310130900|en_IN\"\n  },\n  \"MdmsCriteria\": {\n    \"tenantId\": \"{{stateTenant}}\",\n    \"moduleDetails\": [\n      {\n        \"moduleName\": \"common-masters\",\n        \"masterDetails\": [\n          {\n            \"name\": \"OwnerShipCategory\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/egov-mdms-service/v1/_search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "egov-mdms-service",
+                "v1",
+                "_search"
+              ]
+            },
+            "description": "Single owner = INDIVIDUAL.SINGLEOWNER, Partnership = INDIVIDUAL.MULTIPLEOWNERS."
+          }
+        },
+        {
+          "name": "06 FinancialYear (TL): 2026-27",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "const res = (pm.response.json() || {}).MdmsRes || {};",
+                  "const list = (m, n) => (res[m] || {})[n] || [];",
+                  "pm.test('egf-master.FinancialYear has 2026-27', () => pm.expect(list('egf-master','FinancialYear').map(x => x.code)).to.include('2026-27'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {\n    \"apiId\": \"Rainmaker\",\n    \"ver\": \".01\",\n    \"ts\": \"\",\n    \"action\": \"_search\",\n    \"did\": \"1\",\n    \"key\": \"\",\n    \"msgId\": \"20170310130900|en_IN\"\n  },\n  \"MdmsCriteria\": {\n    \"tenantId\": \"{{stateTenant}}\",\n    \"moduleDetails\": [\n      {\n        \"moduleName\": \"egf-master\",\n        \"masterDetails\": [\n          {\n            \"name\": \"FinancialYear\",\n            \"filter\": \"[?(@.module=='TL')]\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/egov-mdms-service/v1/_search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "egov-mdms-service",
+                "v1",
+                "_search"
+              ]
+            },
+            "description": "Licenses are valid for the whole financial year; tl-services picks the current TL financial year."
+          }
+        },
+        {
+          "name": "07 BillingService: TL business service, tax heads, tax period",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "const res = (pm.response.json() || {}).MdmsRes || {};",
+                  "const list = (m, n) => (res[m] || {})[n] || [];",
+                  "pm.test('BillingService.BusinessService has TL', () => pm.expect(list('BillingService','BusinessService').map(x => x.code)).to.include('TL'));",
+                  "pm.test('BillingService.TaxHeadMaster has TL_TAX', () => pm.expect(list('BillingService','TaxHeadMaster').map(x => x.code)).to.include('TL_TAX'));",
+                  "pm.test('BillingService.TaxHeadMaster has TL_ROUNDOFF', () => pm.expect(list('BillingService','TaxHeadMaster').map(x => x.code)).to.include('TL_ROUNDOFF'));",
+                  "pm.test('BillingService.TaxPeriod has 2026-27', () => pm.expect(list('BillingService','TaxPeriod').map(x => x.financialYear)).to.include('2026-27'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {\n    \"apiId\": \"Rainmaker\",\n    \"ver\": \".01\",\n    \"ts\": \"\",\n    \"action\": \"_search\",\n    \"did\": \"1\",\n    \"key\": \"\",\n    \"msgId\": \"20170310130900|en_IN\"\n  },\n  \"MdmsCriteria\": {\n    \"tenantId\": \"{{stateTenant}}\",\n    \"moduleDetails\": [\n      {\n        \"moduleName\": \"BillingService\",\n        \"masterDetails\": [\n          {\n            \"name\": \"BusinessService\",\n            \"filter\": \"[?(@.code=='TL')]\"\n          },\n          {\n            \"name\": \"TaxHeadMaster\",\n            \"filter\": \"[?(@.service=='TL')]\"\n          },\n          {\n            \"name\": \"TaxPeriod\",\n            \"filter\": \"[?(@.service=='TL')]\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/egov-mdms-service/v1/_search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "egov-mdms-service",
+                "v1",
+                "_search"
+              ]
+            },
+            "description": "Needed to raise the LOI (demand) for TL."
+          }
+        },
+        {
+          "name": "08 Calculator masters: CalculationType, Penalty, Rebate",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "const res = (pm.response.json() || {}).MdmsRes || {};",
+                  "const list = (m, n) => (res[m] || {})[n] || [];",
+                  "pm.test('CalculationType present', () => pm.expect(list('TradeLicense','CalculationType').length).to.be.above(0));",
+                  "pm.test('Penalty present', () => pm.expect(list('TradeLicense','Penalty').length).to.be.above(0));",
+                  "pm.test('Rebate present', () => pm.expect(list('TradeLicense','Rebate').length).to.be.above(0));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {\n    \"apiId\": \"Rainmaker\",\n    \"ver\": \".01\",\n    \"ts\": \"\",\n    \"action\": \"_search\",\n    \"did\": \"1\",\n    \"key\": \"\",\n    \"msgId\": \"20170310130900|en_IN\"\n  },\n  \"MdmsCriteria\": {\n    \"tenantId\": \"{{cityTenant}}\",\n    \"moduleDetails\": [\n      {\n        \"moduleName\": \"TradeLicense\",\n        \"masterDetails\": [\n          {\n            \"name\": \"CalculationType\"\n          },\n          {\n            \"name\": \"Penalty\"\n          },\n          {\n            \"name\": \"Rebate\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/egov-mdms-service/v1/_search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "egov-mdms-service",
+                "v1",
+                "_search"
+              ]
+            },
+            "description": "Read by tl-calculator. CalculationType can be at city level."
+          }
+        },
+        {
+          "name": "09 Tenant and TL module for the city",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "const res = (pm.response.json() || {}).MdmsRes || {};",
+                  "const list = (m, n) => (res[m] || {})[n] || [];",
+                  "pm.test('city tenant exists', () => pm.expect(list('tenant','tenants').map(t => t.code)).to.include(pm.variables.get('cityTenant')));",
+                  "const tl = list('tenant','citymodule').find(m => m.code === 'TL') || {};",
+                  "pm.test('TL enabled for the city', () => pm.expect((tl.tenants || []).map(t => t.code)).to.include(pm.variables.get('cityTenant')));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {\n    \"apiId\": \"Rainmaker\",\n    \"ver\": \".01\",\n    \"ts\": \"\",\n    \"action\": \"_search\",\n    \"did\": \"1\",\n    \"key\": \"\",\n    \"msgId\": \"20170310130900|en_IN\"\n  },\n  \"MdmsCriteria\": {\n    \"tenantId\": \"{{stateTenant}}\",\n    \"moduleDetails\": [\n      {\n        \"moduleName\": \"tenant\",\n        \"masterDetails\": [\n          {\n            \"name\": \"tenants\"\n          },\n          {\n            \"name\": \"citymodule\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/egov-mdms-service/v1/_search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "egov-mdms-service",
+                "v1",
+                "_search"
+              ]
+            },
+            "description": "The city tenant must exist and have TL enabled in citymodule."
+          }
+        },
+        {
+          "name": "10 Localities (egov-location boundary)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "const res = (pm.response.json() || {}).MdmsRes || {};",
+                  "const list = (m, n) => (res[m] || {})[n] || [];",
+                  "const b = list('egov-location','TenantBoundary');",
+                  "pm.test('boundary data present for the city', () => pm.expect(b.length).to.be.above(0));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {\n    \"apiId\": \"Rainmaker\",\n    \"ver\": \".01\",\n    \"ts\": \"\",\n    \"action\": \"_search\",\n    \"did\": \"1\",\n    \"key\": \"\",\n    \"msgId\": \"20170310130900|en_IN\"\n  },\n  \"MdmsCriteria\": {\n    \"tenantId\": \"{{cityTenant}}\",\n    \"moduleDetails\": [\n      {\n        \"moduleName\": \"egov-location\",\n        \"masterDetails\": [\n          {\n            \"name\": \"TenantBoundary\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/egov-mdms-service/v1/_search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "egov-mdms-service",
+                "v1",
+                "_search"
+              ]
+            },
+            "description": "Locality is required for the Permanent license address."
+          }
+        },
+        {
+          "name": "11 Everything tl-services loads (same request as tl-services)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "const res = (pm.response.json() || {}).MdmsRes || {};",
+                  "const list = (m, n) => (res[m] || {})[n] || [];",
+                  "pm.test('egf-master.FinancialYear not empty', () => pm.expect(list('egf-master','FinancialYear').length).to.be.above(0));",
+                  "pm.test('TradeLicense.TradeType not empty', () => pm.expect(list('TradeLicense','TradeType').length).to.be.above(0));",
+                  "pm.test('TradeLicense.AccessoriesCategory not empty', () => pm.expect(list('TradeLicense','AccessoriesCategory').length).to.be.above(0));",
+                  "pm.test('TradeLicense.ReminderPeriods not empty', () => pm.expect(list('TradeLicense','ReminderPeriods').length).to.be.above(0));",
+                  "pm.test('common-masters.OwnerShipCategory not empty', () => pm.expect(list('common-masters','OwnerShipCategory').length).to.be.above(0));",
+                  "pm.test('TradeLicense.StructureType not empty', () => pm.expect(list('TradeLicense','StructureType').length).to.be.above(0));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {\n    \"apiId\": \"Rainmaker\",\n    \"ver\": \".01\",\n    \"ts\": \"\",\n    \"action\": \"_search\",\n    \"did\": \"1\",\n    \"key\": \"\",\n    \"msgId\": \"20170310130900|en_IN\"\n  },\n  \"MdmsCriteria\": {\n    \"tenantId\": \"{{cityTenant}}\",\n    \"moduleDetails\": [\n      {\n        \"moduleName\": \"egf-master\",\n        \"masterDetails\": [\n          {\n            \"name\": \"FinancialYear\",\n            \"filter\": \"$.[?(@.active==true && @.module=='TL')]\"\n          }\n        ]\n      },\n      {\n        \"moduleName\": \"TradeLicense\",\n        \"masterDetails\": [\n          {\n            \"name\": \"TradeType\"\n          },\n          {\n            \"name\": \"AccessoriesCategory\"\n          },\n          {\n            \"name\": \"ReminderPeriods\"\n          },\n          {\n            \"name\": \"StructureType\",\n            \"filter\": \"$.[?(@.active==true)].code\"\n          }\n        ]\n      },\n      {\n        \"moduleName\": \"common-masters\",\n        \"masterDetails\": [\n          {\n            \"name\": \"OwnerShipCategory\",\n            \"filter\": \"$.[?(@.active==true)].code\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/egov-mdms-service/v1/_search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "egov-mdms-service",
+                "v1",
+                "_search"
+              ]
+            },
+            "description": "The exact MDMS request tl-services sends on create/update. All masters must come back non-empty."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Deferred (IdFormat, roles, inbox)",
+      "item": [
+        {
+          "name": "20 TL_HOD role",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "const res = (pm.response.json() || {}).MdmsRes || {};",
+                  "const list = (m, n) => (res[m] || {})[n] || [];",
+                  "pm.test('ACCESSCONTROL-ROLES.roles has TL_HOD', () => pm.expect(list('ACCESSCONTROL-ROLES','roles').map(x => x.code)).to.include('TL_HOD'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {\n    \"apiId\": \"Rainmaker\",\n    \"ver\": \".01\",\n    \"ts\": \"\",\n    \"action\": \"_search\",\n    \"did\": \"1\",\n    \"key\": \"\",\n    \"msgId\": \"20170310130900|en_IN\"\n  },\n  \"MdmsCriteria\": {\n    \"tenantId\": \"{{stateTenant}}\",\n    \"moduleDetails\": [\n      {\n        \"moduleName\": \"ACCESSCONTROL-ROLES\",\n        \"masterDetails\": [\n          {\n            \"name\": \"roles\",\n            \"filter\": \"[?(@.code=='TL_HOD')]\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/egov-mdms-service/v1/_search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "egov-mdms-service",
+                "v1",
+                "_search"
+              ]
+            },
+            "description": "Deferred: ACCESSCONTROL-ROLES.roles must contain TL_HOD."
+          }
+        },
+        {
+          "name": "21 TL_HOD role actions",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "const res = (pm.response.json() || {}).MdmsRes || {};",
+                  "const list = (m, n) => (res[m] || {})[n] || [];",
+                  "pm.test('TL_HOD has API access', () => pm.expect(list('ACCESSCONTROL-ROLEACTIONS','roleactions').length).to.be.above(0));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {\n    \"apiId\": \"Rainmaker\",\n    \"ver\": \".01\",\n    \"ts\": \"\",\n    \"action\": \"_search\",\n    \"did\": \"1\",\n    \"key\": \"\",\n    \"msgId\": \"20170310130900|en_IN\"\n  },\n  \"MdmsCriteria\": {\n    \"tenantId\": \"{{stateTenant}}\",\n    \"moduleDetails\": [\n      {\n        \"moduleName\": \"ACCESSCONTROL-ROLEACTIONS\",\n        \"masterDetails\": [\n          {\n            \"name\": \"roleactions\",\n            \"filter\": \"[?(@.rolecode=='TL_HOD')]\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/egov-mdms-service/v1/_search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "egov-mdms-service",
+                "v1",
+                "_search"
+              ]
+            },
+            "description": "Deferred: ACCESSCONTROL-ROLEACTIONS.roleactions entries for TL_HOD (expected 73, same as TL_APPROVER)."
+          }
+        },
+        {
+          "name": "22 IdFormat: TL application / license number",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "const res = (pm.response.json() || {}).MdmsRes || {};",
+                  "const list = (m, n) => (res[m] || {})[n] || [];",
+                  "pm.test('common-masters.IdFormat has tl.aplnumber', () => pm.expect(list('common-masters','IdFormat').map(x => x.idname)).to.include('tl.aplnumber'));",
+                  "pm.test('common-masters.IdFormat has tl.licensenumber', () => pm.expect(list('common-masters','IdFormat').map(x => x.idname)).to.include('tl.licensenumber'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {\n    \"apiId\": \"Rainmaker\",\n    \"ver\": \".01\",\n    \"ts\": \"\",\n    \"action\": \"_search\",\n    \"did\": \"1\",\n    \"key\": \"\",\n    \"msgId\": \"20170310130900|en_IN\"\n  },\n  \"MdmsCriteria\": {\n    \"tenantId\": \"{{stateTenant}}\",\n    \"moduleDetails\": [\n      {\n        \"moduleName\": \"common-masters\",\n        \"masterDetails\": [\n          {\n            \"name\": \"IdFormat\",\n            \"filter\": \"[?(@.idname=~/^tl\\\\./)]\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/egov-mdms-service/v1/_search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "egov-mdms-service",
+                "v1",
+                "_search"
+              ]
+            },
+            "description": "Deferred: without these, numbers use the tl-services default format."
+          }
+        },
+        {
+          "name": "23 CommonInboxConfig: TL_NEW / TTL_NEW",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "const res = (pm.response.json() || {}).MdmsRes || {};",
+                  "const list = (m, n) => (res[m] || {})[n] || [];",
+                  "const bs = list('common-masters','CommonInboxConfig').map(c => c.BusinessService);",
+                  "pm.test('TL_NEW in inbox', () => pm.expect(bs).to.include('TL_NEW'));",
+                  "pm.test('TTL_NEW in inbox', () => pm.expect(bs).to.include('TTL_NEW'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {\n    \"apiId\": \"Rainmaker\",\n    \"ver\": \".01\",\n    \"ts\": \"\",\n    \"action\": \"_search\",\n    \"did\": \"1\",\n    \"key\": \"\",\n    \"msgId\": \"20170310130900|en_IN\"\n  },\n  \"MdmsCriteria\": {\n    \"tenantId\": \"{{stateTenant}}\",\n    \"moduleDetails\": [\n      {\n        \"moduleName\": \"common-masters\",\n        \"masterDetails\": [\n          {\n            \"name\": \"CommonInboxConfig\",\n            \"filter\": \"[?(@.moduleName=='TL')]\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/egov-mdms-service/v1/_search",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "egov-mdms-service",
+                "v1",
+                "_search"
+              ]
+            },
+            "description": "SMC applications show in the employee inbox only when their workflow is configured here."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,214 @@
+﻿{
+    "ResponseInfo":  {
+                         "apiId":  "Rainmaker",
+                         "ver":  null,
+                         "ts":  null,
+                         "resMsgId":  "uief87324",
+                         "msgId":  "local|en_IN",
+                         "status":  "successful"
+                     },
+    "Licenses":  [
+                     {
+                         "comment":  null,
+                         "id":  "2ca4d4e1-4847-4bcd-8928-06ce9058ce70",
+                         "tenantId":  "pg.smc",
+                         "businessService":  "TL",
+                         "licenseType":  "PERMANENT",
+                         "applicationType":  "NEW",
+                         "workflowCode":  "TL_NEW",
+                         "licenseNumber":  null,
+                         "applicationNumber":  "PB-TL-2026-10-02-005879",
+                         "oldLicenseNumber":  null,
+                         "propertyId":  "",
+                         "oldPropertyId":  null,
+                         "accountId":  "57a3e9c0-fc9e-480c-bf12-2d6a964d134c",
+                         "tradeName":  "Cahndan",
+                         "applicationDate":  1790879670758,
+                         "commencementDate":  1790812800000,
+                         "issuedDate":  null,
+                         "financialYear":  "2026-27",
+                         "validFrom":  1775001600000,
+                         "validTo":  1806537599000,
+                         "action":  "INITIATE",
+                         "assignee":  null,
+                         "wfDocuments":  [
+
+                                         ],
+                         "status":  "INITIATED",
+                         "tradeLicenseDetail":  {
+                                                    "id":  "ed7fcb86-52e9-4d7b-bc0c-04abef18f29d",
+                                                    "surveyNo":  "1",
+                                                    "subOwnerShipCategory":  "INDIVIDUAL.SINGLEOWNER",
+                                                    "structureType":  "IMMOVABLE.PUCCA",
+                                                    "operationalArea":  1.0,
+                                                    "noOfEmployees":  2,
+                                                    "adhocExemption":  null,
+                                                    "adhocPenalty":  null,
+                                                    "adhocExemptionReason":  null,
+                                                    "adhocPenaltyReason":  null,
+                                                    "owners":  [
+                                                                   {
+                                                                       "id":  17253,
+                                                                       "uuid":  "57a3e9c0-fc9e-480c-bf12-2d6a964d134c",
+                                                                       "userName":  "c58f64fa-6993-43e0-b752-f1cc7c9ebe0c",
+                                                                       "password":  null,
+                                                                       "salutation":  null,
+                                                                       "name":  "chndndn",
+                                                                       "gender":  "MALE",
+                                                                       "mobileNumber":  "7747474747",
+                                                                       "emailId":  null,
+                                                                       "altContactNumber":  null,
+                                                                       "pan":  null,
+                                                                       "aadhaarNumber":  null,
+                                                                       "permanentAddress":  "ggggfg",
+                                                                       "permanentCity":  null,
+                                                                       "permanentPinCode":  null,
+                                                                       "correspondenceCity":  null,
+                                                                       "correspondencePinCode":  null,
+                                                                       "correspondenceAddress":  null,
+                                                                       "active":  true,
+                                                                       "dob":  null,
+                                                                       "pwdExpiryDate":  null,
+                                                                       "locale":  null,
+                                                                       "type":  "CITIZEN",
+                                                                       "signature":  null,
+                                                                       "accountLocked":  null,
+                                                                       "roles":  [
+                                                                                     {
+                                                                                         "id":  null,
+                                                                                         "name":  "Citizen",
+                                                                                         "code":  "CITIZEN",
+                                                                                         "tenantId":  "pg"
+                                                                                     }
+                                                                                 ],
+                                                                       "fatherOrHusbandName":  "chndndn",
+                                                                       "bloodGroup":  null,
+                                                                       "identificationMark":  null,
+                                                                       "photo":  null,
+                                                                       "createdBy":  "57a3e9c0-fc9e-480c-bf12-2d6a964d134c",
+                                                                       "createdDate":  1790879670850,
+                                                                       "lastModifiedBy":  "57a3e9c0-fc9e-480c-bf12-2d6a964d134c",
+                                                                       "lastModifiedDate":  1790879670850,
+                                                                       "otpReference":  null,
+                                                                       "tenantId":  "pg",
+                                                                       "isPrimaryOwner":  true,
+                                                                       "ownerShipPercentage":  null,
+                                                                       "ownerType":  null,
+                                                                       "institutionId":  null,
+                                                                       "additionalDetails":  {
+                                                                                                 "ownerSequence":  0,
+                                                                                                 "name":  "chndndn",
+                                                                                                 "aadhaarNumber":  null,
+                                                                                                 "residentialAddress":  "ggggfg",
+                                                                                                 "isprimaryowner":  true
+                                                                                             },
+                                                                       "documents":  null,
+                                                                       "userActive":  true,
+                                                                       "relationship":  "FATHER"
+                                                                   }
+                                                               ],
+                                                    "channel":  "CITIZEN",
+                                                    "address":  {
+                                                                    "id":  "29ee3a78-2f9c-4d71-9808-673f1e82d8f2",
+                                                                    "tenantId":  "pg.smc",
+                                                                    "doorNo":  null,
+                                                                    "latitude":  null,
+                                                                    "longitude":  null,
+                                                                    "addressId":  null,
+                                                                    "addressNumber":  null,
+                                                                    "type":  null,
+                                                                    "addressLine1":  "gh",
+                                                                    "addressLine2":  null,
+                                                                    "landmark":  null,
+                                                                    "city":  null,
+                                                                    "pincode":  "876655",
+                                                                    "detail":  null,
+                                                                    "buildingName":  null,
+                                                                    "street":  null,
+                                                                    "locality":  {
+                                                                                     "code":  "JLC476",
+                                                                                     "name":  "Main Road Abadpura",
+                                                                                     "label":  "Locality",
+                                                                                     "latitude":  null,
+                                                                                     "longitude":  null,
+                                                                                     "children":  [
+
+                                                                                                  ],
+                                                                                     "materializedPath":  null
+                                                                                 }
+                                                                },
+                                                    "tradeUnits":  [
+                                                                       {
+                                                                           "id":  "523a8023-02f0-4b80-90d1-b36f902ce98c",
+                                                                           "tenantId":  "pg.smc",
+                                                                           "active":  true,
+                                                                           "tradeType":  "GOODS.MANUFACTURE.SMC-01",
+                                                                           "uom":  null,
+                                                                           "uomValue":  null,
+                                                                           "auditDetails":  null
+                                                                       }
+                                                                   ],
+                                                    "accessories":  null,
+                                                    "applicationDocuments":  [
+
+                                                                             ],
+                                                    "verificationDocuments":  null,
+                                                    "additionalDetail":  {
+                                                                             "isImmovableStructure":  true,
+                                                                             "firmRegistrationNo":  null,
+                                                                             "legalStatus":  "OWNED",
+                                                                             "noOfMachines":  2,
+                                                                             "gatNo":  "2",
+                                                                             "ctsNo":  "3",
+                                                                             "plotNo":  "4",
+                                                                             "landownerName":  "asit",
+                                                                             "propertyId":  "",
+                                                                             "isSameAsPropertyOwner":  null,
+                                                                             "tradeGstNo":  null,
+                                                                             "totalMachines":  2,
+                                                                             "surveyNo":  "1",
+                                                                             "propertyTaxNo":  null,
+                                                                             "ownershipType":  null
+                                                                         },
+                                                    "institution":  null,
+                                                    "auditDetails":  {
+                                                                         "createdBy":  "57a3e9c0-fc9e-480c-bf12-2d6a964d134c",
+                                                                         "lastModifiedBy":  "57a3e9c0-fc9e-480c-bf12-2d6a964d134c",
+                                                                         "createdTime":  1790879670758,
+                                                                         "lastModifiedTime":  1790879670758
+                                                                     }
+                                                },
+                         "calculation":  {
+                                             "applicationNumber":  null,
+                                             "tradeLicense":  null,
+                                             "tenantId":  "pg.smc",
+                                             "taxHeadEstimates":  [
+                                                                      {
+                                                                          "taxHeadCode":  "TL_TAX",
+                                                                          "estimateAmount":  500.0,
+                                                                          "category":  "TAX"
+                                                                      }
+                                                                  ],
+                                             "tradeTypeBillingIds":  {
+                                                                         "id":  "80991716-eb4f-49f0-8005-80a3ccd79f14",
+                                                                         "fee":  500.0,
+                                                                         "billingSlabIds":  [
+                                                                                                "45fbed61-eda8-a9f3-482f-8df916722e6d|0|523a8023-02f0-4b80-90d1-b36f902ce98c"
+                                                                                            ]
+                                                                     },
+                                             "accessoryBillingIds":  null
+                                         },
+                         "auditDetails":  {
+                                              "createdBy":  "57a3e9c0-fc9e-480c-bf12-2d6a964d134c",
+                                              "lastModifiedBy":  "57a3e9c0-fc9e-480c-bf12-2d6a964d134c",
+                                              "createdTime":  1790879670758,
+                                              "lastModifiedTime":  1790879670758
+                                          },
+                         "fileStoreId":  null
+                     }
+                 ],
+    "Count":  0,
+    "applicationsIssued":  0,
+    "applicationsRenewed":  0,
+    "applicationValidity":  0
+}

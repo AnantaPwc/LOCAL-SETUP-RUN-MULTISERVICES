@@ -1,0 +1,16 @@
+{
+  "tenantId": "pg",
+  "moduleName": "ACCESSCONTROL-ROLES",
+  "roles": [
+    {
+      "code": "TL_HOD",
+      "name": "TL Head of Department",
+      "description": "Verifies trade license applications and recommends them to the Chief Officer"
+    },
+    {
+      "code": "TP_HOD",
+      "name": "Town Planning Head of Department",
+      "description": "Verifies the building permission and sanctioned plan of a health NOC application"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "tenantId": "pg",
+  "moduleName": "BillingService",
+  "TaxPeriod": [
+    {
+      "fromDate": 1806537600000,
+      "toDate": 1838159999000,
+      "periodCycle": "ANNUAL",
+      "service": "TL",
+      "code": "TLAN2027",
+      "financialYear": "2027-28"
+    },
+    {
+      "fromDate": 1806537600000,
+      "toDate": 1838159999000,
+      "periodCycle": "ANNUAL",
+      "service": "TL",
+      "code": "TLRENEWAL2027",
+      "financialYear": "2027-28"
+    }
+  ]
+}

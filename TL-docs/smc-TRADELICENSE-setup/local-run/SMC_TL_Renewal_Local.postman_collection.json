@@ -1,0 +1,1317 @@
+{
+  "info": {
+    "name": "SMC Trade License - Renewal (TL_RENEW) - Local",
+    "description": "Renewal of a Permanent trade license (service `TL_RENEW`) against the local stack (see LOCAL_RUN.md and ../README.md, section 5).\n\n**Before the first run**\n1. Set the collection variable `licenseNumber` to an issued (APPROVED) Permanent license of pg.smc.\n2. Run folder 0: both requests must pass. If not, load the workflow `TL_RENEW` and `billingslab_TL_SMC_Annexure1_renewal.sql`.\n\n**Run** folder 1 top to bottom, or with the Collection Runner. A license can be renewed once per financial year, so for the next run change `licenseNumber`.\n\nThe request bodies are built in the collection pre-request script, driven by the `X-TL-*` headers of each request; the body that was sent is in the Postman console.\n- `X-TL-Renew`: search the license `{{licenseNumber}}` and turn it into the renewal request (applicationType RENEWAL, workflowCode TL_RENEW, action INITIATE)\n- `X-TL-Action` / `X-TL-From`: read the renewal application, wait for the status in `X-TL-From`, send it back with this action\n- `X-TL-User`: `citizen` or `tlsu1` (the real employee TLSU1, given the role in `X-TL-Role` for the step)\n- `X-TL-Expect`: status the test expects; `X-TL-ExpectError`: error code the test expects\n\nThere is no gateway locally: `authToken` is not checked and `userInfo` is sent in the body.\nThe database is shared with the deployed environment: folder 1 creates a real application, demand and receipt. Folder 2 saves nothing.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "0. Check the setup (read only)",
+      "item": [
+        {
+          "name": "Workflow TL_RENEW is loaded",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "tlsu1",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-ExpectCount",
+                "value": "1",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{workflowUrl}}/egov-workflow-v2/egov-wf/businessservice/_search?tenantId={{stateTenantId}}&businessServices=TL_RENEW",
+              "host": [
+                "{{workflowUrl}}"
+              ],
+              "path": [
+                "egov-workflow-v2",
+                "egov-wf",
+                "businessservice",
+                "_search"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{stateTenantId}}"
+                },
+                {
+                  "key": "businessServices",
+                  "value": "TL_RENEW"
+                }
+              ]
+            },
+            "description": "Must return the business service TL_RENEW. Empty: load src/main/resources/Workflows/TL_RENEW.json for tenant pg."
+          },
+          "response": []
+        },
+        {
+          "name": "Renewal billing slabs are loaded",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "tlsu1",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-ExpectCount",
+                "value": "52",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{calculatorUrl}}/tl-calculator/billingslab/_search?tenantId={{tenantId}}&applicationType=RENEWAL&licenseType=PERMANENT",
+              "host": [
+                "{{calculatorUrl}}"
+              ],
+              "path": [
+                "tl-calculator",
+                "billingslab",
+                "_search"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "applicationType",
+                  "value": "RENEWAL"
+                },
+                {
+                  "key": "licenseType",
+                  "value": "PERMANENT"
+                }
+              ]
+            },
+            "description": "Must return the 52 RENEWAL slabs. Fewer: run billingslab_TL_SMC_Annexure1_renewal.sql."
+          },
+          "response": []
+        },
+        {
+          "name": "License to renew",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "citizen",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_search?tenantId={{tenantId}}&licenseNumbers={{licenseNumber}}",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_search"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "licenseNumbers",
+                  "value": "{{licenseNumber}}"
+                }
+              ]
+            },
+            "description": "All applications under the license number: the new license and its renewals."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "1. Renewal - citizen applies, TLSU1 processes",
+      "item": [
+        {
+          "name": "INITIATE the renewal",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Renew",
+                "value": "true",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "citizen",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Save",
+                "value": "application",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "INITIATED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-ExpectRenewal",
+                "value": "true",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "Sends the issued license to _update with applicationType RENEWAL, workflowCode TL_RENEW and action INITIATE, as the UI does. tl-services creates a new application under the same license number and sets the financial year: the next one while the license is valid, the current one when it has lapsed. The response carries the fee estimate (TL_RENEWAL_TAX, and TL_RENEWAL_PENALTY when late)."
+          },
+          "response": []
+        },
+        {
+          "name": "Search the renewal",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-WaitStatus",
+                "value": "INITIATED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "citizen",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_search?tenantId={{tenantId}}&applicationNumber={{applicationNumber}}",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_search"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "applicationNumber",
+                  "value": "{{applicationNumber}}"
+                }
+              ]
+            },
+            "description": "Reads the renewal back. additionalDetail.previousApplicationNumber points to the application it renews."
+          },
+          "response": []
+        },
+        {
+          "name": "APPLY",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "APPLY",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "INITIATED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "APPLIED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "citizen",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "Submits the renewal. Adds the missing renewal documents (AADHAARCARD, SHOPACTLICENSE, PREVIOUSLICENSE). The SMC checks run here, including property tax and water dues."
+          },
+          "response": []
+        },
+        {
+          "name": "FORWARD: document verification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "FORWARD",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "APPLIED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "FIELDINSPECTION",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "tlsu1",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_DOC_VERIFIER",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "Needs role TL_DOC_VERIFIER."
+          },
+          "response": []
+        },
+        {
+          "name": "FORWARD: field inspection",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "FORWARD",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "FIELDINSPECTION",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "PENDINGHODVERIFICATION",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "tlsu1",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_FIELD_INSPECTOR",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "Needs role TL_FIELD_INSPECTOR."
+          },
+          "response": []
+        },
+        {
+          "name": "FORWARD: HOD verification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "FORWARD",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "PENDINGHODVERIFICATION",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "PENDINGAPPROVAL",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "tlsu1",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_HOD",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "Needs role TL_HOD."
+          },
+          "response": []
+        },
+        {
+          "name": "APPROVE",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "APPROVE",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "PENDINGAPPROVAL",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "PENDINGPAYMENT",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "tlsu1",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_APPROVER",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "Needs role TL_APPROVER (Chief Officer). The demand (LOI) is raised here."
+          },
+          "response": []
+        },
+        {
+          "name": "Fetch bill",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-WaitStatus",
+                "value": "PENDINGPAYMENT",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "tlsu1",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_CEMP",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{billingUrl}}/billing-service/bill/v2/_fetchbill?tenantId={{tenantId}}&consumerCode={{applicationNumber}}&businessService=TL",
+              "host": [
+                "{{billingUrl}}"
+              ],
+              "path": [
+                "billing-service",
+                "bill",
+                "v2",
+                "_fetchbill"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "consumerCode",
+                  "value": "{{applicationNumber}}"
+                },
+                {
+                  "key": "businessService",
+                  "value": "TL"
+                }
+              ]
+            },
+            "description": "Generates the bill. Heads: TL_RENEWAL_TAX (Annexure 1 fee) and TL_RENEWAL_PENALTY (the same amount again when the renewal was applied for after 31 March, otherwise 0)."
+          },
+          "response": []
+        },
+        {
+          "name": "Pay in cash",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "tlsu1",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_CEMP",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}},\n  \"Payment\": {\n    \"tenantId\": \"{{tenantId}}\",\n    \"paymentMode\": \"CASH\",\n    \"totalDue\": {{billAmount}},\n    \"totalAmountPaid\": {{billAmount}},\n    \"paidBy\": \"OWNER\",\n    \"payerName\": \"OWNER\",\n    \"mobileNumber\": \"{{citizenMobile}}\",\n    \"paymentDetails\": [\n      {\n        \"businessService\": \"TL\",\n        \"billId\": \"{{billId}}\",\n        \"totalDue\": {{billAmount}},\n        \"totalAmountPaid\": {{billAmount}}\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{collectionUrl}}/collection-services/payments/_create",
+              "host": [
+                "{{collectionUrl}}"
+              ],
+              "path": [
+                "collection-services",
+                "payments",
+                "_create"
+              ]
+            },
+            "description": "Counter payment of the full bill amount. collection-services publishes the payment event; tl-services then issues the renewal."
+          },
+          "response": []
+        },
+        {
+          "name": "Search: renewed license",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-WaitStatus",
+                "value": "APPROVED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "citizen",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "APPROVED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-ExpectRenewal",
+                "value": "true",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_search?tenantId={{tenantId}}&applicationNumber={{applicationNumber}}",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_search"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "applicationNumber",
+                  "value": "{{applicationNumber}}"
+                }
+              ]
+            },
+            "description": "The renewal is APPROVED with the same license number and the new validity."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Refused renewals (nothing is saved)",
+      "item": [
+        {
+          "name": "Unknown license number",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Renew",
+                "value": "true",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-LicenseNumber",
+                "value": "PB-TL-0000-00-00-000000",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "citizen",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-ExpectError",
+                "value": "INVALID_PREVIOUSLICENSE",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "The number must belong to an issued or expired license."
+          },
+          "response": []
+        },
+        {
+          "name": "Type of business changed",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Renew",
+                "value": "true",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-ChangeTradeType",
+                "value": "true",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "citizen",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-ExpectError",
+                "value": "INVALID_TRADETYPE",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "The fee is that of the business type on the previous license, so it cannot change in a renewal. After folder 1 has renewed {{licenseNumber}} for the last financial year in MDMS, this request is refused earlier with INVALID FINANCIALYEAR instead; use another licenseNumber."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. Supporting services",
+      "item": [
+        {
+          "name": "Workflow history of the renewal",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "tlsu1",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{workflowUrl}}/egov-workflow-v2/egov-wf/process/_search?tenantId={{tenantId}}&businessIds={{applicationNumber}}&history=true",
+              "host": [
+                "{{workflowUrl}}"
+              ],
+              "path": [
+                "egov-workflow-v2",
+                "egov-wf",
+                "process",
+                "_search"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "businessIds",
+                  "value": "{{applicationNumber}}"
+                },
+                {
+                  "key": "history",
+                  "value": "true"
+                }
+              ]
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Demand of the renewal",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "tlsu1",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{billingUrl}}/billing-service/demand/_search?tenantId={{tenantId}}&businessService=TL&consumerCode={{applicationNumber}}",
+              "host": [
+                "{{billingUrl}}"
+              ],
+              "path": [
+                "billing-service",
+                "demand",
+                "_search"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "businessService",
+                  "value": "TL"
+                },
+                {
+                  "key": "consumerCode",
+                  "value": "{{applicationNumber}}"
+                }
+              ]
+            },
+            "description": "Exists from PENDINGPAYMENT on."
+          },
+          "response": []
+        },
+        {
+          "name": "Payments of the renewal",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "tlsu1",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_CEMP",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{collectionUrl}}/collection-services/payments/TL/_search?tenantId={{tenantId}}&consumerCodes={{applicationNumber}}",
+              "host": [
+                "{{collectionUrl}}"
+              ],
+              "path": [
+                "collection-services",
+                "payments",
+                "TL",
+                "_search"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "consumerCodes",
+                  "value": "{{applicationNumber}}"
+                }
+              ]
+            },
+            "description": ""
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const h = name => pm.request.headers.get(name);",
+          "const v = name => pm.collectionVariables.get(name);",
+          "const tenant = v('tenantId');",
+          "",
+          "// Locally there is no gateway: the user is sent in the body and its roles are trusted.",
+          "// Both users exist in eg_user. Never use a made-up uuid: it is stored in the workflow history.",
+          "const role = h('X-TL-Role');",
+          "const users = {",
+          "    citizen: { id: Number(v('citizenId')), uuid: v('citizenUuid'), userName: v('citizenMobile'), name: 'OWNER', mobileNumber: v('citizenMobile'), type: 'CITIZEN', tenantId: v('stateTenantId'),",
+          "               roles: [{ code: 'CITIZEN', name: 'Citizen', tenantId: v('stateTenantId') }] },",
+          "    tlsu1:   { id: Number(v('tlsu1Id')), uuid: v('tlsu1Uuid'), userName: 'TLSU1', name: 'TLSU1', type: 'EMPLOYEE', tenantId: tenant,",
+          "               roles: (role ? [role] : v('tlsu1Roles').split(',')).map(r => ({ code: r.trim(), name: r.trim(), tenantId: tenant })) }",
+          "};",
+          "const requestInfo = { apiId: 'Rainmaker', authToken: 'not-checked-locally', msgId: 'postman|en_IN', userInfo: users[(h('X-TL-User') || 'citizen').toLowerCase()] };",
+          "pm.variables.set('requestInfo', JSON.stringify(requestInfo));",
+          "",
+          "const post = (url, done) => pm.sendRequest({ url, method: 'POST', header: { 'Content-Type': 'application/json' },",
+          "    body: { mode: 'raw', raw: JSON.stringify({ RequestInfo: requestInfo }) } }, (err, res) => {",
+          "        let licenses = [];",
+          "        try { licenses = res.json().Licenses || []; } catch (e) { /* not json */ }",
+          "        done(licenses);",
+          "    });",
+          "",
+          "// ---- X-TL-Renew: build the renewal request from the issued license ---------------------------------------",
+          "if (h('X-TL-Renew')) {",
+          "    const number = h('X-TL-LicenseNumber') || v('licenseNumber');",
+          "    post(v('tlUrl') + '/tl-services/v1/_search?tenantId=' + tenant + '&licenseNumbers=' + number, licenses => {",
+          "        const issued = licenses.filter(l => ['APPROVED', 'EXPIRED'].includes(l.status)).sort((a, b) => b.validTo - a.validTo)[0];",
+          "        // an unknown number is sent on the license of {{licenseNumber}}, to show the refusal of tl-services",
+          "        const send = issued => {",
+          "            issued.licenseNumber = number;",
+          "            issued.applicationType = 'RENEWAL';",
+          "            issued.workflowCode = 'TL_RENEW';",
+          "            issued.action = 'INITIATE';",
+          "            if (h('X-TL-ChangeTradeType')) {",
+          "                const unit = issued.tradeLicenseDetail.tradeUnits[0];",
+          "                unit.tradeType = unit.tradeType === 'GOODS.MANUFACTURE.SMC-01' ? 'GOODS.MANUFACTURE.SMC-03' : 'GOODS.MANUFACTURE.SMC-01';",
+          "            }",
+          "            pm.variables.set('updateBody', JSON.stringify({ RequestInfo: requestInfo, Licenses: [issued] }, null, 2));",
+          "        };",
+          "        if (issued) return send(issued);",
+          "        post(v('tlUrl') + '/tl-services/v1/_search?tenantId=' + tenant + '&licenseNumbers=' + v('licenseNumber'), others => {",
+          "            const other = others.filter(l => ['APPROVED', 'EXPIRED'].includes(l.status))[0];",
+          "            if (!other) throw new Error('No issued license found with number ' + v('licenseNumber') + '. Set the collection variable licenseNumber.');",
+          "            send(other);",
+          "        });",
+          "    });",
+          "    return;",
+          "}",
+          "",
+          "const action = h('X-TL-Action');",
+          "const waitFor = h('X-TL-WaitStatus');",
+          "if (!action && !waitFor) return;",
+          "",
+          "// ---- read the renewal application; the persister writes a few seconds after each call, so retry ----------",
+          "const searchUrl = v('tlUrl') + '/tl-services/v1/_search?tenantId=' + tenant + '&applicationNumber=' + v('applicationNumber');",
+          "const wanted = waitFor || h('X-TL-From');",
+          "let tries = 0;",
+          "const search = done => {",
+          "    tries++;",
+          "    post(searchUrl, licenses => {",
+          "        const license = licenses[0];",
+          "        if ((license && (!wanted || license.status === wanted)) || tries >= 12) return done(license);",
+          "        setTimeout(() => search(done), 2000);",
+          "    });",
+          "};",
+          "",
+          "search(license => {",
+          "    if (!license) throw new Error('Application ' + v('applicationNumber') + ' not found. Run \"INITIATE the renewal\" first.');",
+          "    if (!action) return;                                   // X-TL-WaitStatus only",
+          "",
+          "    license.action = action;",
+          "    // older persister configs blank addressLine1 on every update unless it is sent again",
+          "    if (!license.tradeLicenseDetail.address.addressLine1) license.tradeLicenseDetail.address.addressLine1 = v('firmAddress');",
+          "    if (h('X-TL-Comment')) license.comment = h('X-TL-Comment');",
+          "",
+          "    if (action === 'APPLY' || action === 'RESUBMIT') {",
+          "        // owner details search may not return (user stand-in, masked values)",
+          "        const owner = license.tradeLicenseDetail.owners[0];",
+          "        if (!owner.name || owner.name === 'STUB USER') owner.name = v('ownerName');",
+          "        if (!owner.mobileNumber) owner.mobileNumber = v('ownerMobile');",
+          "        if (!owner.aadhaarNumber) owner.aadhaarNumber = v('ownerAadhaar');",
+          "        if (!owner.permanentAddress) owner.permanentAddress = v('ownerAddress');",
+          "",
+          "        // documents carried over from the previous application keep their id; the renewal documents are added",
+          "        const documents = license.tradeLicenseDetail.applicationDocuments || [];",
+          "        ['AADHAARCARD', 'SHOPACTLICENSE', 'PREVIOUSLICENSE'].forEach(type => {",
+          "            if (h('X-TL-WithoutDocument') === type) return;",
+          "            if (!documents.some(d => d.documentType === type && d.active !== false))",
+          "                documents.push({ tenantId: tenant, documentType: type, fileStoreId: 'local-test-renewal-' + type.toLowerCase() + '-' + license.applicationNumber, active: true });",
+          "        });",
+          "        license.tradeLicenseDetail.applicationDocuments = documents;",
+          "    }",
+          "    pm.variables.set('updateBody', JSON.stringify({ RequestInfo: requestInfo, Licenses: [license] }, null, 2));",
+          "});"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const h = name => pm.request.headers.get(name);",
+          "const v = name => pm.collectionVariables.get(name);",
+          "const date = millis => millis ? new Date(Number(millis) + 19800000).toISOString().substring(0, 10) : '-';",
+          "let body = {};",
+          "try { body = pm.response.json(); } catch (e) { /* not json */ }",
+          "const errors = (body.Errors || []).map(e => e.code + ': ' + e.message).join(' | ');",
+          "",
+          "const expectedError = h('X-TL-ExpectError');",
+          "if (expectedError) {",
+          "    pm.test('refused with ' + expectedError, () => {",
+          "        pm.expect(pm.response.code).to.be.at.least(400);",
+          "        pm.expect(errors).to.include(expectedError);",
+          "    });",
+          "    console.log(pm.info.requestName + ' -> ' + errors.substring(0, 300));",
+          "    return;",
+          "}",
+          "pm.test('HTTP 200 / 201', () => {",
+          "    if (pm.response.code >= 300) console.log(pm.info.requestName + ' -> ' + (errors || JSON.stringify(body)));",
+          "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+          "});",
+          "",
+          "const license = body.Licenses && body.Licenses[0];",
+          "if (license) {",
+          "    const fee = ((license.calculation || {}).taxHeadEstimates || []).map(e => e.taxHeadCode + ' ' + e.estimateAmount).join(', ');",
+          "    console.log(pm.info.requestName + ' -> ' + license.applicationNumber + ' (' + license.applicationType + ', ' + license.workflowCode + ') is ' + license.status",
+          "        + ', license ' + license.licenseNumber + ', ' + license.financialYear + ' valid ' + date(license.validFrom) + ' to ' + date(license.validTo) + (fee ? ', fee: ' + fee : ''));",
+          "    if (h('X-TL-Save') === 'application') pm.collectionVariables.set('applicationNumber', license.applicationNumber);",
+          "    const expected = h('X-TL-Expect');",
+          "    if (expected) pm.test('status is ' + expected, () => pm.expect(license.status).to.equal(expected));",
+          "    if (h('X-TL-ExpectRenewal')) {",
+          "        pm.test('is a renewal on workflow TL_RENEW', () => {",
+          "            pm.expect(license.applicationType).to.equal('RENEWAL');",
+          "            pm.expect(license.workflowCode).to.equal('TL_RENEW');",
+          "        });",
+          "        pm.test('keeps the license number ' + v('licenseNumber'), () => pm.expect(license.licenseNumber).to.equal(v('licenseNumber')));",
+          "        pm.test('has a financial year and validity', () => {",
+          "            pm.expect(license.financialYear).to.be.a('string').and.not.empty;",
+          "            pm.expect(license.validTo).to.be.above(license.validFrom);",
+          "        });",
+          "    }",
+          "}",
+          "if (body.Bill && body.Bill[0]) {",
+          "    const bill = body.Bill[0];",
+          "    pm.collectionVariables.set('billId', bill.id);",
+          "    pm.collectionVariables.set('billAmount', String(bill.totalAmount));",
+          "    const heads = ((bill.billDetails || [])[0] || {}).billAccountDetails || [];",
+          "    console.log(pm.info.requestName + ' -> bill ' + bill.billNumber + ', amount ' + bill.totalAmount + ' (' + heads.map(a => a.taxHeadCode + ' ' + a.amount).join(', ') + ')');",
+          "    pm.test('bill has the renewal fee head', () => pm.expect(heads.map(a => a.taxHeadCode)).to.include('TL_RENEWAL_TAX'));",
+          "}",
+          "if (body.Payments && body.Payments[0] && pm.request.url.getPath().endsWith('_create')) {",
+          "    const payment = body.Payments[0];",
+          "    console.log(pm.info.requestName + ' -> receipt ' + payment.paymentDetails[0].receiptNumber + ', paid ' + payment.totalAmountPaid);",
+          "    pm.test('receipt is generated', () => pm.expect(payment.paymentDetails[0].receiptNumber).to.be.a('string').and.not.empty);",
+          "}",
+          "const count = h('X-TL-ExpectCount');",
+          "if (count) {",
+          "    const list = body.BusinessServices || body.billingSlab || body.BillingSlab || [];",
+          "    console.log(pm.info.requestName + ' -> ' + list.length + ' found');",
+          "    pm.test('at least ' + count + ' found (setup is loaded)', () => pm.expect(list.length).to.be.at.least(Number(count)));",
+          "}"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "licenseNumber",
+      "value": "PB-TL-2026-10-10-001315"
+    },
+    {
+      "key": "tlUrl",
+      "value": "http://localhost:8079"
+    },
+    {
+      "key": "billingUrl",
+      "value": "http://localhost:8082"
+    },
+    {
+      "key": "collectionUrl",
+      "value": "http://localhost:8095"
+    },
+    {
+      "key": "workflowUrl",
+      "value": "http://localhost:8280"
+    },
+    {
+      "key": "calculatorUrl",
+      "value": "http://localhost:8085"
+    },
+    {
+      "key": "tenantId",
+      "value": "pg.smc"
+    },
+    {
+      "key": "stateTenantId",
+      "value": "pg"
+    },
+    {
+      "key": "citizenUuid",
+      "value": "57a3e9c0-fc9e-480c-bf12-2d6a964d134c"
+    },
+    {
+      "key": "citizenId",
+      "value": "17253"
+    },
+    {
+      "key": "citizenMobile",
+      "value": "8908011908"
+    },
+    {
+      "key": "tlsu1Uuid",
+      "value": "73e6bb90-e1d0-4835-99d5-adc277877af6"
+    },
+    {
+      "key": "tlsu1Id",
+      "value": "10059"
+    },
+    {
+      "key": "tlsu1Roles",
+      "value": "EMPLOYEE,TL_APPROVER,TL_CEMP,TL_DOC_VERIFIER,TL_FIELD_INSPECTOR,TL_HOD"
+    },
+    {
+      "key": "firmAddress",
+      "value": "gh"
+    },
+    {
+      "key": "ownerName",
+      "value": "Local Test Owner"
+    },
+    {
+      "key": "ownerMobile",
+      "value": "7747474747"
+    },
+    {
+      "key": "ownerAadhaar",
+      "value": "234567894821"
+    },
+    {
+      "key": "ownerAddress",
+      "value": "12, Test Colony, Sangamner"
+    },
+    {
+      "key": "applicationNumber",
+      "value": ""
+    },
+    {
+      "key": "billId",
+      "value": ""
+    },
+    {
+      "key": "billAmount",
+      "value": ""
+    }
+  ]
+}

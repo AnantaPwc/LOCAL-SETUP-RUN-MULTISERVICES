@@ -1,0 +1,38 @@
+diff --git a/frontend/upyog-ui/web/micro-ui-internals/packages/modules/tl/src/pages/citizen/Applications/ApplicationDetails.js b/frontend/upyog-ui/web/micro-ui-internals/packages/modules/tl/src/pages/citizen/Applications/ApplicationDetails.js
+index 609f01f41a..5068eee29b 100644
+--- a/frontend/upyog-ui/web/micro-ui-internals/packages/modules/tl/src/pages/citizen/Applications/ApplicationDetails.js
++++ b/frontend/upyog-ui/web/micro-ui-internals/packages/modules/tl/src/pages/citizen/Applications/ApplicationDetails.js
+@@ -56,6 +56,9 @@ const TLApplicationDetails = () => {
+   const addDetail = tradeDetail?.additionalDetail || {};
+   const addr = tradeDetail?.address || {};
+ 
++  // business type names come from the MDMS master (TradeLicense.TradeType), the same list the form shows
++  const { data: tradeTypeMdms = {} } = Digit.Hooks.tl.useTradeLicenseMDMS(stateId, "TradeLicense", "TradeType");
++
+   const { isLoading: PTLoading, data: PTData } =
+     Digit.Hooks.pt.usePropertySearch(
+       {
+@@ -254,14 +257,18 @@ const TLApplicationDetails = () => {
+   // Field values with robust fallback to '-'
+   const firmName = appData?.tradeName || "-";
+   const rawTradeType = tradeDetail?.tradeUnits?.[0]?.tradeType;
++  const tradeTypeList = tradeTypeMdms?.TradeLicense?.TradeType || tradeTypeMdms?.TradeType || [];
++  const tradeTypeName = tradeTypeList.find((tt) => tt.code === rawTradeType)?.name;
++  const tradeTypeKey = rawTradeType ? `TRADELICENSE_TRADETYPE_${Digit.Utils.locale.getTransformedLocale(rawTradeType)}` : "";
+   const businessType = rawTradeType
+-    ? t(`TL_${rawTradeType}`) !== `TL_${rawTradeType}`
+-      ? t(`TL_${rawTradeType}`)
+-      : rawTradeType.split(".").pop().replace(/_/g, " ")
++    ? t(tradeTypeKey) !== tradeTypeKey
++      ? t(tradeTypeKey)
++      : tradeTypeName || rawTradeType.split(".").pop().replace(/_/g, " ")
+     : "-";
+   const structureCode = tradeDetail?.structureType || "";
+-  const isMovable = structureCode.includes("MOVABLE");
+-  const licenseType = isMovable ? "Temporary" : "Permanent";
++  // "IMMOVABLE" contains "MOVABLE", so the first part of the code is compared, not searched
++  const isMovable = structureCode.split(".")[0] === "MOVABLE";
++  const licenseType = appData?.licenseType ? (appData.licenseType === "TEMPORARY" ? "Temporary" : "Permanent") : isMovable ? "Temporary" : "Permanent";
+   const structureStr = isMovable ? "Movable" : "Immovable";
+   const subTypeStr = structureCode
+     ? t(`COMMON_MASTERS_STRUCTURETYPE_${structureCode.replace(".", "_")}`) !== `COMMON_MASTERS_STRUCTURETYPE_${structureCode.replace(".", "_")}`

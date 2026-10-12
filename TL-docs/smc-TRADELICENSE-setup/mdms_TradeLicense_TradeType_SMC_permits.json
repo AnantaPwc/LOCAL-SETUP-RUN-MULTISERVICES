@@ -1,0 +1,764 @@
+{
+  "tenantId": "pg",
+  "moduleName": "TradeLicense",
+  "TradeType": [
+    {
+      "name": "Hotel with lodging",
+      "code": "CLEANLINESS.CERTIFICATE.SMC-C01",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "CLEAN_CERT",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE",
+            "LIFTLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Wine shop",
+      "code": "CLEANLINESS.CERTIFICATE.SMC-C02",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "CLEAN_CERT",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE",
+            "LIFTLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Bar",
+      "code": "CLEANLINESS.CERTIFICATE.SMC-C03",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "CLEAN_CERT",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE",
+            "LIFTLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Country liquor shop",
+      "code": "CLEANLINESS.CERTIFICATE.SMC-C04",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "CLEAN_CERT",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE",
+            "LIFTLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Clinic / Day care",
+      "code": "NOC.HEALTH.SMC-N01",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Nursing home / Hospital / Maternity home",
+      "code": "NOC.HEALTH.SMC-N02",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Multi-speciality hospital",
+      "code": "NOC.HEALTH.SMC-N03",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Pathology lab",
+      "code": "NOC.HEALTH.SMC-N04",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Medical store",
+      "code": "NOC.HEALTH.SMC-N05",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Sonography, X-ray & diagnostic centre",
+      "code": "NOC.HEALTH.SMC-N06",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Printing press",
+      "code": "NOC.HEALTH.SMC-N07",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Krishi Seva Kendra (agri inputs shop)",
+      "code": "NOC.HEALTH.SMC-N08",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Flour mill / any three-phase electricity connection",
+      "code": "NOC.HEALTH.SMC-N09",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Salon - Non-AC",
+      "code": "NOC.HEALTH.SMC-N10",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Salon - AC",
+      "code": "NOC.HEALTH.SMC-N11",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Beauty parlour",
+      "code": "NOC.HEALTH.SMC-N12",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Spa parlour / beauty parlour",
+      "code": "NOC.HEALTH.SMC-N13",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Petrol pump",
+      "code": "NOC.HEALTH.SMC-N14",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Chicken / mutton and fish sale business",
+      "code": "NOC.HEALTH.SMC-N15",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Welding and fabrication",
+      "code": "NOC.HEALTH.SMC-N16",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Aqua / packaged drinking water plant",
+      "code": "NOC.HEALTH.SMC-N17",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Restaurant",
+      "code": "NOC.HEALTH.SMC-N18",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Hotel, lodge",
+      "code": "NOC.HEALTH.SMC-N19",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Beer bar",
+      "code": "NOC.HEALTH.SMC-N20",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Wine shop",
+      "code": "NOC.HEALTH.SMC-N21",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Leather industry (tannery)",
+      "code": "NOC.HEALTH.SMC-N22",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Pest control services",
+      "code": "NOC.HEALTH.SMC-N23",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Ice factory",
+      "code": "NOC.HEALTH.SMC-N24",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "HEALTH_NOC",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "BUILDINGPERMISSION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Banner",
+      "code": "ADVERTISEMENT.DISPLAY.BANNER",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "ADV_PERM",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "ADCOPY",
+            "AADHAARCARD",
+            "PROPERTYEXTRACT",
+            "NODUESCERTIFICATE",
+            "SELFDECLARATION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Flex",
+      "code": "ADVERTISEMENT.DISPLAY.FLEX",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "ADV_PERM",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "ADCOPY",
+            "AADHAARCARD",
+            "PROPERTYEXTRACT",
+            "NODUESCERTIFICATE",
+            "SELFDECLARATION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Flags",
+      "code": "ADVERTISEMENT.DISPLAY.FLAGS",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "ADV_PERM",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "ADCOPY",
+            "AADHAARCARD",
+            "PROPERTYEXTRACT",
+            "NODUESCERTIFICATE",
+            "SELFDECLARATION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "Permanent hoarding",
+      "code": "ADVERTISEMENT.DISPLAY.HOARDING",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "ADV_PERM",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "ADCOPY",
+            "AADHAARCARD",
+            "PROPERTYEXTRACT",
+            "NODUESCERTIFICATE",
+            "SELFDECLARATION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    },
+    {
+      "name": "LED screen / wall",
+      "code": "ADVERTISEMENT.DISPLAY.LED",
+      "uom": null,
+      "type": "SMC_PERMIT",
+      "service": "ADV_PERM",
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "ADCOPY",
+            "AADHAARCARD",
+            "PROPERTYEXTRACT",
+            "NODUESCERTIFICATE",
+            "SELFDECLARATION"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "validityPeriod": null
+    }
+  ]
+}

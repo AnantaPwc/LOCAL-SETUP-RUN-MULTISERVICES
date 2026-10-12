@@ -1,0 +1,506 @@
+{
+  "tenantId": "pg",
+  "moduleName": "TradeLicense",
+  "TradeType": [
+    {
+      "name": "Pan Shop",
+      "code": "GOODS.MOVABLE.SMC-M01",
+      "uom": null,
+      "movable": true,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "AADHAARCARD"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Vada Pav Sales",
+      "code": "GOODS.MOVABLE.SMC-M02",
+      "uom": null,
+      "movable": true,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "AADHAARCARD"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Tea Sales",
+      "code": "GOODS.MOVABLE.SMC-M03",
+      "uom": null,
+      "movable": true,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "AADHAARCARD"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Artificial Jewellery",
+      "code": "GOODS.MOVABLE.SMC-M04",
+      "uom": null,
+      "movable": true,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "AADHAARCARD"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Ice Cream Sales",
+      "code": "GOODS.MOVABLE.SMC-M05",
+      "uom": null,
+      "movable": true,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "AADHAARCARD"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Pav Bhaji and Pizza",
+      "code": "GOODS.MOVABLE.SMC-M06",
+      "uom": null,
+      "movable": true,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "AADHAARCARD"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Cold-Pressed Oil Mill",
+      "code": "GOODS.MOVABLE.SMC-M07",
+      "uom": null,
+      "movable": true,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "AADHAARCARD"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Omelette Pav",
+      "code": "GOODS.MOVABLE.SMC-M08",
+      "uom": null,
+      "movable": true,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "AADHAARCARD"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Idli and Dosa",
+      "code": "GOODS.MOVABLE.SMC-M09",
+      "uom": null,
+      "movable": true,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "AADHAARCARD"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Vada Pav and Tea",
+      "code": "GOODS.MOVABLE.SMC-M10",
+      "uom": null,
+      "movable": true,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "AADHAARCARD"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Country Liquor Shop",
+      "code": "GOODS.MOVABLE.SMC-M11",
+      "uom": null,
+      "movable": true,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "AADHAARCARD"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Cake Sales",
+      "code": "GOODS.MOVABLE.SMC-M12",
+      "uom": null,
+      "movable": true,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "AADHAARCARD"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Laundry",
+      "code": "SERVICES.MOVABLE.SMC-M13",
+      "uom": null,
+      "movable": true,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "AADHAARCARD"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Welding and Fabrication",
+      "code": "SERVICES.MOVABLE.SMC-M14",
+      "uom": null,
+      "movable": true,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "AADHAARCARD"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Pav Bhaji",
+      "code": "GOODS.MOVABLE.SMC-M15",
+      "uom": null,
+      "movable": true,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "AADHAARCARD"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Samosa Shop",
+      "code": "GOODS.MOVABLE.SMC-M16",
+      "uom": null,
+      "movable": true,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "AADHAARCARD"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Pani Puri",
+      "code": "GOODS.MOVABLE.SMC-M17",
+      "uom": null,
+      "movable": true,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "AADHAARCARD"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Bhel Sales",
+      "code": "GOODS.MOVABLE.SMC-M18",
+      "uom": null,
+      "movable": true,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "AADHAARCARD"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Fabrication",
+      "code": "SERVICES.MOVABLE.SMC-M19",
+      "uom": null,
+      "movable": true,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "AADHAARCARD"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Beauty Parlour",
+      "code": "SERVICES.MOVABLE.SMC-M20",
+      "uom": null,
+      "movable": true,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "AADHAARCARD"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    }
+  ]
+}

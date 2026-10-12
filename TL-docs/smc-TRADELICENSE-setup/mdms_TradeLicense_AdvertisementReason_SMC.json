@@ -1,0 +1,44 @@
+{
+  "tenantId": "pg",
+  "moduleName": "TradeLicense",
+  "AdvertisementReason": [
+    {
+      "code": "BIRTHDAY",
+      "name": "Birthday",
+      "category": "RELIGIOUS_SOCIAL",
+      "assumed": true,
+      "active": true
+    },
+    {
+      "code": "POLITICAL",
+      "name": "Political",
+      "category": "POLITICAL_ELECTION",
+      "active": true
+    },
+    {
+      "code": "SOCIAL_RELIGIOUS",
+      "name": "Social or Religious",
+      "category": "RELIGIOUS_SOCIAL",
+      "active": true
+    },
+    {
+      "code": "GOVERNMENT",
+      "name": "Government or Janhitarth",
+      "category": "GOVT_PUBLIC",
+      "active": true
+    },
+    {
+      "code": "PROFESSIONAL",
+      "name": "Professional",
+      "category": "COMMERCIAL",
+      "active": true
+    },
+    {
+      "code": "OTHER",
+      "name": "Other",
+      "category": "COMMERCIAL",
+      "assumed": true,
+      "active": true
+    }
+  ]
+}

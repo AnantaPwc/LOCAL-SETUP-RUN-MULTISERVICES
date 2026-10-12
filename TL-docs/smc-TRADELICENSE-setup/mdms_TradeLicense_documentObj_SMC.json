@@ -1,0 +1,62 @@
+{
+  "tenantId": "pg",
+  "moduleName": "TradeLicense",
+  "documentObj": [
+    {
+      "allowedDocs": [
+        {
+          "documentType": "SEVENTWELVEEXTRACT",
+          "applicationType": [
+            "NEW"
+          ],
+          "required": true
+        },
+        {
+          "documentType": "SHOPACTLICENSE",
+          "applicationType": [
+            "NEW",
+            "RENEWAL"
+          ],
+          "required": true
+        },
+        {
+          "documentType": "LANDOWNERCONSENT",
+          "applicationType": [
+            "NEW"
+          ],
+          "required": false
+        },
+        {
+          "documentType": "AADHAARCARD",
+          "applicationType": [
+            "NEW",
+            "RENEWAL"
+          ],
+          "required": true
+        },
+        {
+          "documentType": "OWNERPHOTO",
+          "applicationType": [
+            "NEW"
+          ],
+          "required": true
+        },
+        {
+          "documentType": "OTHERPERMISSION",
+          "applicationType": [
+            "NEW"
+          ],
+          "required": false
+        },
+        {
+          "documentType": "PREVIOUSLICENSE",
+          "applicationType": [
+            "RENEWAL"
+          ],
+          "required": true
+        }
+      ],
+      "tradeType": "GOODS"
+    }
+  ]
+}

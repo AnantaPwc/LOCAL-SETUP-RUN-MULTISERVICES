@@ -1,0 +1,405 @@
+{
+  "RequestInfo": {
+    "apiId": "Rainmaker",
+    "authToken": "{{authToken}}"
+  },
+  "tenantId": "pg",
+  "messages": [
+    {
+      "code": "TRADELICENSE_TRADETYPE_CLEANLINESS_CERTIFICATE_SMC-C01",
+      "message": "Hotel with lodging",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_CLEANLINESS_CERTIFICATE_SMC-C02",
+      "message": "Wine shop",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_CLEANLINESS_CERTIFICATE_SMC-C03",
+      "message": "Bar",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_CLEANLINESS_CERTIFICATE_SMC-C04",
+      "message": "Country liquor shop",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N01",
+      "message": "Clinic / Day care",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N02",
+      "message": "Nursing home / Hospital / Maternity home",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N03",
+      "message": "Multi-speciality hospital",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N04",
+      "message": "Pathology lab",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N05",
+      "message": "Medical store",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N06",
+      "message": "Sonography, X-ray & diagnostic centre",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N07",
+      "message": "Printing press",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N08",
+      "message": "Krishi Seva Kendra (agri inputs shop)",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N09",
+      "message": "Flour mill / any three-phase electricity connection",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N10",
+      "message": "Salon - Non-AC",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N11",
+      "message": "Salon - AC",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N12",
+      "message": "Beauty parlour",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N13",
+      "message": "Spa parlour / beauty parlour",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N14",
+      "message": "Petrol pump",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N15",
+      "message": "Chicken / mutton and fish sale business",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N16",
+      "message": "Welding and fabrication",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N17",
+      "message": "Aqua / packaged drinking water plant",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N18",
+      "message": "Restaurant",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N19",
+      "message": "Hotel, lodge",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N20",
+      "message": "Beer bar",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N21",
+      "message": "Wine shop",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N22",
+      "message": "Leather industry (tannery)",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N23",
+      "message": "Pest control services",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N24",
+      "message": "Ice factory",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_ADVERTISEMENT_DISPLAY_BANNER",
+      "message": "Banner",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_ADVERTISEMENT_DISPLAY_FLEX",
+      "message": "Flex",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_ADVERTISEMENT_DISPLAY_FLAGS",
+      "message": "Flags",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_ADVERTISEMENT_DISPLAY_HOARDING",
+      "message": "Permanent hoarding",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_ADVERTISEMENT_DISPLAY_LED",
+      "message": "LED screen / wall",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_SERVICE_CLEAN_CERT",
+      "message": "Cleanliness Certificate",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_SERVICE_HEALTH_NOC",
+      "message": "No Objection Certificate (Health License)",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_SERVICE_ADV_PERM",
+      "message": "Advertisement / Hoarding / Flex / Flags Permission",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "WF_NEWTL_PENDINGTPVERIFICATION",
+      "message": "Pending with Town Planning HoD",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "WF_NEWTL_PENDINGHODVERIFICATION",
+      "message": "Pending with License HoD",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "WF_NEWTL_PUBLICITYPAYMENTPENDING",
+      "message": "Paper publicity charge to be paid",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "WF_NEWTL_OBJECTIONWINDOW",
+      "message": "Notice published, objections awaited",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "WF_NEWTL_HEARING",
+      "message": "Objection received, hearing",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "WF_NEWTL_MARK_OFFENSIVE",
+      "message": "Mark as offensive business",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "WF_NEWTL_NO_OBJECTION",
+      "message": "No objection received",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "WF_NEWTL_OBJECTION_RECEIVED",
+      "message": "Objection received",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_PROPERTYEXTRACT",
+      "message": "Property extract",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_PROPERTYTAXRECEIPT",
+      "message": "Property tax bill and paid receipt",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_LIFTLICENSE",
+      "message": "Lift license, if the premises has a lift",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_BUILDINGPERMISSION",
+      "message": "Building permission order with sanctioned building plan",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_ADCOPY",
+      "message": "Copy of the advertisement / banner / hoarding / flex to be displayed",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_NODUESCERTIFICATE",
+      "message": "No-dues certificate (property and water taxes)",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_GOVTNOC",
+      "message": "NOC from the Govt. / Semi-Govt. organisation",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_STABILITYCERTIFICATE",
+      "message": "Stability certificate from a registered structural engineer",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_ELECTRICALSAFETYCERTIFICATE",
+      "message": "Electrical safety certificate",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_SELFDECLARATION",
+      "message": "Self-declaration",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_CLEAN_CERT_FEE",
+      "message": "Cleanliness certificate fee",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_NOC_FEE",
+      "message": "Health NOC fee",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_NOC_PUBLICITY_FEE",
+      "message": "Paper publicity charge",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_ADV_CHARGE",
+      "message": "Advertisement charge",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_ADV_PERMISSION_FEE",
+      "message": "Permission fee",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_ADV_REASON_BIRTHDAY",
+      "message": "Birthday",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_ADV_REASON_POLITICAL",
+      "message": "Political",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_ADV_REASON_SOCIAL_RELIGIOUS",
+      "message": "Social or Religious",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_ADV_REASON_GOVERNMENT",
+      "message": "Government or Janhitarth",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_ADV_REASON_PROFESSIONAL",
+      "message": "Professional",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_ADV_REASON_OTHER",
+      "message": "Other",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "ACCESSCONTROL_ROLES_ROLES_TP_HOD",
+      "message": "Town Planning Head of Department",
+      "module": "rainmaker-common",
+      "locale": "en_IN"
+    }
+  ]
+}

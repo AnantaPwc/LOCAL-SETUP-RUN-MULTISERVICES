@@ -1,0 +1,2848 @@
+{
+  "info": {
+    "name": "SMC Trade License - Local",
+    "description": "Trade license flows against the local stack started by `start-local.ps1` (see LOCAL_RUN.md).\n\nRun the requests of a folder top to bottom, or run the whole folder with the Collection Runner.\nEach update request first reads the application with `_search`, changes the action and sends it back; that happens in the collection pre-request script, driven by the `X-TL-*` headers of the request:\n\n- `X-TL-User`: `citizen`, `tlsu1` (real employee TLSU1 with its real roles) or `employee` (made-up employee with the role in `X-TL-Role`)\n- `X-TL-Action`: workflow action to send; `X-TL-From`: status to wait for before sending\n- `X-TL-Expect`: status the test expects afterwards\n\nThere is no gateway locally: `authToken` is not checked and `userInfo` is sent in the body. The built body of the last update is visible in the Postman console.\nThe database is shared with the deployed environment: every run creates real records.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "tlUrl",
+      "value": "http://localhost:8079"
+    },
+    {
+      "key": "billingUrl",
+      "value": "http://localhost:8082"
+    },
+    {
+      "key": "collectionUrl",
+      "value": "http://localhost:8095"
+    },
+    {
+      "key": "workflowUrl",
+      "value": "http://localhost:8280"
+    },
+    {
+      "key": "calculatorUrl",
+      "value": "http://localhost:8085"
+    },
+    {
+      "key": "locationUrl",
+      "value": "http://localhost:8086"
+    },
+    {
+      "key": "mdmsUrl",
+      "value": "http://localhost:8094"
+    },
+    {
+      "key": "tenantId",
+      "value": "pg.smc"
+    },
+    {
+      "key": "stateTenantId",
+      "value": "pg"
+    },
+    {
+      "key": "citizenUuid",
+      "value": "57a3e9c0-fc9e-480c-bf12-2d6a964d134c"
+    },
+    {
+      "key": "citizenId",
+      "value": "17253"
+    },
+    {
+      "key": "citizenMobile",
+      "value": "8908011908"
+    },
+    {
+      "key": "tlsu1Uuid",
+      "value": "73e6bb90-e1d0-4835-99d5-adc277877af6"
+    },
+    {
+      "key": "tlsu1Id",
+      "value": "10059"
+    },
+    {
+      "key": "tlsu1Roles",
+      "value": "EMPLOYEE,TL_APPROVER,TL_CEMP,TL_DOC_VERIFIER,TL_FIELD_INSPECTOR"
+    },
+    {
+      "key": "propertyId",
+      "value": "PG-PT-1013-008993"
+    },
+    {
+      "key": "firmAddress",
+      "value": "gh"
+    },
+    {
+      "key": "ownerName",
+      "value": "Local Test Owner"
+    },
+    {
+      "key": "ownerMobile",
+      "value": "7747474747"
+    },
+    {
+      "key": "ownerAadhaar",
+      "value": "234567894821"
+    },
+    {
+      "key": "ownerAddress",
+      "value": "12, Test Colony, Sangamner"
+    },
+    {
+      "key": "applicationNumber",
+      "value": ""
+    },
+    {
+      "key": "billId",
+      "value": ""
+    },
+    {
+      "key": "billAmount",
+      "value": ""
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const h = name => pm.request.headers.get(name);",
+          "const v = name => pm.collectionVariables.get(name);",
+          "const tenant = v('tenantId');",
+          "",
+          "const users = {",
+          "    citizen: { id: Number(v('citizenId')), uuid: v('citizenUuid'), userName: v('citizenMobile'), name: 'OWNER', mobileNumber: v('citizenMobile'), type: 'CITIZEN', tenantId: v('stateTenantId'),",
+          "               roles: [{ code: 'CITIZEN', name: 'Citizen', tenantId: v('stateTenantId') }] },",
+          "    tlsu1:   { id: Number(v('tlsu1Id')), uuid: v('tlsu1Uuid'), userName: 'TLSU1', name: 'TLSU1', type: 'EMPLOYEE', tenantId: tenant,",
+          "               roles: v('tlsu1Roles').split(',').map(r => ({ code: r.trim(), name: r.trim(), tenantId: tenant })) }",
+          "};",
+          "const who = (h('X-TL-User') || 'citizen').toLowerCase();",
+          "let userInfo = users[who];",
+          "if (!userInfo) {",
+          "    // \"employee\": a made-up employee holding exactly the role named in X-TL-Role",
+          "    const role = h('X-TL-Role') || 'TL_CEMP';",
+          "    userInfo = { id: 1, uuid: 'local-test-employee', userName: 'LOCALEMP', name: 'Local Test Employee', mobileNumber: '9999999999', type: 'EMPLOYEE', tenantId: tenant,",
+          "                 roles: [{ code: role, name: role, tenantId: tenant }] };",
+          "}",
+          "const requestInfo = { apiId: 'Rainmaker', authToken: 'not-checked-locally', msgId: 'postman|en_IN', userInfo };",
+          "pm.variables.set('requestInfo', JSON.stringify(requestInfo));",
+          "",
+          "const action = h('X-TL-Action');",
+          "const waitFor = h('X-TL-WaitStatus');",
+          "if (!action && !waitFor) return;",
+          "",
+          "// read the application; the persister writes a few seconds after each call, so retry",
+          "const searchUrl = v('tlUrl') + '/tl-services/v1/_search?tenantId=' + tenant + '&applicationNumber=' + v('applicationNumber');",
+          "const from = h('X-TL-From');",
+          "let tries = 0;",
+          "const search = done => {",
+          "    tries++;",
+          "    pm.sendRequest({ url: searchUrl, method: 'POST', header: { 'Content-Type': 'application/json' },",
+          "                     body: { mode: 'raw', raw: JSON.stringify({ RequestInfo: requestInfo }) } }, (err, res) => {",
+          "        let license = null;",
+          "        try { license = res.json().Licenses[0]; } catch (e) { /* not there yet */ }",
+          "        const wanted = waitFor || from;",
+          "        const ready = license && (!wanted || license.status === wanted);",
+          "        if (ready || tries >= 12) return done(license);",
+          "        setTimeout(() => search(done), 2000);",
+          "    });",
+          "};",
+          "",
+          "search(license => {",
+          "    if (!license) throw new Error('Application ' + v('applicationNumber') + ' not found. Run the create request first.');",
+          "    if (!action) return;                                   // X-TL-WaitStatus only",
+          "",
+          "    license.action = action;",
+          "    // the persister update mapping blanks addressLine1 unless it is sent every time",
+          "    if (!license.tradeLicenseDetail.address.addressLine1) license.tradeLicenseDetail.address.addressLine1 = v('firmAddress');",
+          "    if (h('X-TL-Comment')) license.comment = h('X-TL-Comment');",
+          "",
+          "    if (action === 'APPLY' || action === 'RESUBMIT') {",
+          "        const temporary = license.workflowCode === 'TTL_NEW';",
+          "        if (!temporary) license.propertyId = v('propertyId');",
+          "        const owner = license.tradeLicenseDetail.owners[0];",
+          "        owner.name = v('ownerName');",
+          "        owner.mobileNumber = v('ownerMobile');",
+          "        owner.aadhaarNumber = v('ownerAadhaar');",
+          "        owner.permanentAddress = v('ownerAddress');",
+          "        if (!(license.tradeLicenseDetail.applicationDocuments || []).length) {",
+          "            const types = temporary ? ['AADHAARCARD'] : ['SEVENTWELVEEXTRACT', 'SHOPACTLICENSE', 'LANDOWNERCONSENT', 'AADHAARCARD', 'OWNERPHOTO'];",
+          "            license.tradeLicenseDetail.applicationDocuments = types.map(t => ({ tenantId: tenant, documentType: t, fileStoreId: 'local-test-' + t.toLowerCase(), active: true }));",
+          "        }",
+          "    }",
+          "    pm.variables.set('updateBody', JSON.stringify({ RequestInfo: requestInfo, Licenses: [license] }, null, 2));",
+          "});"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const h = name => pm.request.headers.get(name);",
+          "let body = {};",
+          "try { body = pm.response.json(); } catch (e) { /* not json */ }",
+          "",
+          "const expectedHttp = h('X-TL-ExpectHttp');",
+          "if (expectedHttp) {",
+          "    pm.test('refused with HTTP ' + expectedHttp, () => pm.expect(pm.response.code).to.equal(Number(expectedHttp)));",
+          "    console.log(pm.info.requestName + ' -> ' + ((body.Errors || []).map(e => e.code + ': ' + e.message).join(' | ')).substring(0, 300));",
+          "} else {",
+          "    pm.test('HTTP 200 / 201', () => {",
+          "        if (pm.response.code >= 300) console.log(JSON.stringify(body.Errors || body, null, 2));",
+          "        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+          "    });",
+          "}",
+          "",
+          "const license = body.Licenses && body.Licenses[0];",
+          "if (license) {",
+          "    console.log(pm.info.requestName + ' -> ' + license.applicationNumber + ' is ' + license.status + (license.licenseNumber ? ', license ' + license.licenseNumber : ''));",
+          "    if (h('X-TL-Save') === 'application') pm.collectionVariables.set('applicationNumber', license.applicationNumber);",
+          "    const expected = h('X-TL-Expect');",
+          "    if (expected) pm.test('status is ' + expected, () => pm.expect(license.status).to.equal(expected));",
+          "    if (h('X-TL-ExpectLicenseNumber')) pm.test('license number is generated', () => pm.expect(license.licenseNumber).to.be.a('string').and.not.empty);",
+          "}",
+          "if (body.Bill && body.Bill[0]) {",
+          "    pm.collectionVariables.set('billId', body.Bill[0].id);",
+          "    pm.collectionVariables.set('billAmount', body.Bill[0].totalAmount);",
+          "    console.log('bill ' + body.Bill[0].billNumber + ', amount ' + body.Bill[0].totalAmount);",
+          "}",
+          "if (body.Payments && body.Payments[0] && body.Payments[0].paymentDetails) {",
+          "    console.log('receipt ' + body.Payments[0].paymentDetails[0].receiptNumber + ', paid ' + body.Payments[0].totalAmountPaid);",
+          "}"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Citizen flow - Permanent (TL_NEW)",
+      "description": "INITIATE to APPROVED with a cash payment. Citizen steps as the test citizen, each employee step as a made-up employee with the required role.",
+      "item": [
+        {
+          "name": "Create (INITIATE)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Save",
+                "value": "application",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "INITIATED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "citizen",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}},\n  \"Licenses\": [\n    {\n      \"tenantId\": \"pg.smc\",\n      \"businessService\": \"TL\",\n      \"workflowCode\": \"TL_NEW\",\n      \"licenseType\": \"PERMANENT\",\n      \"applicationType\": \"NEW\",\n      \"action\": \"INITIATE\",\n      \"financialYear\": \"2026-27\",\n      \"commencementDate\": 1790812800000,\n      \"tradeName\": \"Cahndan\",\n      \"propertyId\": \"\",\n      \"tradeLicenseDetail\": {\n        \"channel\": \"CITIZEN\",\n        \"structureType\": \"IMMOVABLE.PUCCA\",\n        \"subOwnerShipCategory\": \"INDIVIDUAL.SINGLEOWNER\",\n        \"noOfEmployees\": 2,\n        \"operationalArea\": 1,\n        \"surveyNo\": \"1\",\n        \"address\": {\n          \"tenantId\": \"pg.smc\",\n          \"addressLine1\": \"gh\",\n          \"pincode\": \"876655\",\n          \"locality\": {\n            \"code\": \"JLC476\"\n          }\n        },\n        \"tradeUnits\": [\n          {\n            \"tradeType\": \"GOODS.MANUFACTURE.SMC-01\",\n            \"uom\": null,\n            \"uomValue\": null\n          }\n        ],\n        \"owners\": [\n          {\n            \"name\": \"chndndn\",\n            \"mobileNumber\": \"7747474747\",\n            \"aadhaarNumber\": null,\n            \"fatherOrHusbandName\": \"chndndn\",\n            \"relationship\": \"FATHER\",\n            \"gender\": \"MALE\",\n            \"permanentAddress\": \"ggggfg\",\n            \"emailId\": null,\n            \"isPrimaryOwner\": true,\n            \"additionalDetails\": {\n              \"ownerSequence\": 0,\n              \"name\": \"chndndn\",\n              \"aadhaarNumber\": null,\n              \"residentialAddress\": \"ggggfg\",\n              \"isprimaryowner\": true\n            },\n            \"dob\": null\n          }\n        ],\n        \"additionalDetail\": {\n          \"isImmovableStructure\": true,\n          \"firmRegistrationNo\": null,\n          \"legalStatus\": \"OWNED\",\n          \"noOfMachines\": 2,\n          \"gatNo\": \"2\",\n          \"ctsNo\": \"3\",\n          \"plotNo\": \"4\",\n          \"landownerName\": \"asit\",\n          \"propertyId\": \"\",\n          \"isSameAsPropertyOwner\": null,\n          \"tradeGstNo\": null,\n          \"totalMachines\": 2,\n          \"surveyNo\": \"1\",\n          \"propertyTaxNo\": null,\n          \"ownershipType\": null\n        },\n        \"applicationDocuments\": [],\n        \"accessories\": null\n      },\n      \"wfDocuments\": []\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_create",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_create"
+              ]
+            },
+            "description": "Saves a draft application. Stores applicationNumber for the following requests."
+          },
+          "response": []
+        },
+        {
+          "name": "Search",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-WaitStatus",
+                "value": "INITIATED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "citizen",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_search?tenantId={{tenantId}}&applicationNumber={{applicationNumber}}",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_search"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "applicationNumber",
+                  "value": "{{applicationNumber}}"
+                }
+              ]
+            },
+            "description": "Reads the application back. The persister writes it a few seconds after the create call."
+          },
+          "response": []
+        },
+        {
+          "name": "APPLY",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "APPLY",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "INITIATED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "APPLIED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "citizen",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "Submits the draft. Adds propertyId, owner Aadhaar and address, and the required documents. All SMC checks run here."
+          },
+          "response": []
+        },
+        {
+          "name": "FORWARD: document verification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "FORWARD",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "APPLIED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "FIELDINSPECTION",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_DOC_VERIFIER",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "Needs role TL_DOC_VERIFIER."
+          },
+          "response": []
+        },
+        {
+          "name": "FORWARD: field inspection",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "FORWARD",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "FIELDINSPECTION",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "PENDINGHODVERIFICATION",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_FIELD_INSPECTOR",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "Needs role TL_FIELD_INSPECTOR."
+          },
+          "response": []
+        },
+        {
+          "name": "FORWARD: HOD verification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "FORWARD",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "PENDINGHODVERIFICATION",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "PENDINGAPPROVAL",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_HOD",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "Needs role TL_HOD. No user in pg.smc holds this role yet, so it is always sent as a made-up employee."
+          },
+          "response": []
+        },
+        {
+          "name": "APPROVE",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "APPROVE",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "PENDINGAPPROVAL",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "PENDINGPAYMENT",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_APPROVER",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "Needs role TL_APPROVER. The fee is calculated and the demand is created here."
+          },
+          "response": []
+        },
+        {
+          "name": "Fetch bill",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-WaitStatus",
+                "value": "PENDINGPAYMENT",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_CEMP",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{billingUrl}}/billing-service/bill/v2/_fetchbill?tenantId={{tenantId}}&consumerCode={{applicationNumber}}&businessService=TL",
+              "host": [
+                "{{billingUrl}}"
+              ],
+              "path": [
+                "billing-service",
+                "bill",
+                "v2",
+                "_fetchbill"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "consumerCode",
+                  "value": "{{applicationNumber}}"
+                },
+                {
+                  "key": "businessService",
+                  "value": "TL"
+                }
+              ]
+            },
+            "description": "billing-service generates the bill for the demand created at APPROVE. Saves billId and billAmount for the payment."
+          },
+          "response": []
+        },
+        {
+          "name": "Pay in cash",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_CEMP",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}},\n  \"Payment\": {\n    \"tenantId\": \"{{tenantId}}\",\n    \"paymentMode\": \"CASH\",\n    \"totalDue\": {{billAmount}},\n    \"totalAmountPaid\": {{billAmount}},\n    \"paidBy\": \"OWNER\",\n    \"payerName\": \"{{ownerName}}\",\n    \"mobileNumber\": \"{{ownerMobile}}\",\n    \"paymentDetails\": [\n      { \"businessService\": \"TL\", \"billId\": \"{{billId}}\", \"totalDue\": {{billAmount}}, \"totalAmountPaid\": {{billAmount}} }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{collectionUrl}}/collection-services/payments/_create",
+              "host": [
+                "{{collectionUrl}}"
+              ],
+              "path": [
+                "collection-services",
+                "payments",
+                "_create"
+              ]
+            },
+            "description": "collection-services creates the payment and receipt and publishes the payment event. billing-service then marks the demand paid and tl-services approves the license."
+          },
+          "response": []
+        },
+        {
+          "name": "Search: approved license",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-WaitStatus",
+                "value": "APPROVED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "APPROVED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-ExpectLicenseNumber",
+                "value": "true",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "citizen",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_search?tenantId={{tenantId}}&applicationNumber={{applicationNumber}}",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_search"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "applicationNumber",
+                  "value": "{{applicationNumber}}"
+                }
+              ]
+            },
+            "description": "Waits until the payment event is processed, then shows status APPROVED with the license number."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Citizen flow - Temporary (TTL_NEW)",
+      "description": "Same flow for a movable trade: no property, employee names instead, one document.",
+      "item": [
+        {
+          "name": "Create (INITIATE)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Save",
+                "value": "application",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "INITIATED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "citizen",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}},\n  \"Licenses\": [\n    {\n      \"tenantId\": \"pg.smc\",\n      \"businessService\": \"TL\",\n      \"workflowCode\": \"TTL_NEW\",\n      \"licenseType\": \"TEMPORARY\",\n      \"applicationType\": \"NEW\",\n      \"action\": \"INITIATE\",\n      \"financialYear\": \"2026-27\",\n      \"commencementDate\": 1790812800000,\n      \"tradeName\": \"Cahndan\",\n      \"propertyId\": \"\",\n      \"tradeLicenseDetail\": {\n        \"channel\": \"CITIZEN\",\n        \"structureType\": \"MOVABLE.HANDCART\",\n        \"subOwnerShipCategory\": \"INDIVIDUAL.SINGLEOWNER\",\n        \"noOfEmployees\": 2,\n        \"operationalArea\": 1,\n        \"surveyNo\": \"1\",\n        \"address\": {\n          \"tenantId\": \"pg.smc\",\n          \"addressLine1\": \"gh\",\n          \"pincode\": \"876655\",\n          \"locality\": {\n            \"code\": \"JLC476\"\n          }\n        },\n        \"tradeUnits\": [\n          {\n            \"tradeType\": \"GOODS.MANUFACTURE.SMC-01\",\n            \"uom\": null,\n            \"uomValue\": null\n          }\n        ],\n        \"owners\": [\n          {\n            \"name\": \"chndndn\",\n            \"mobileNumber\": \"7747474747\",\n            \"aadhaarNumber\": null,\n            \"fatherOrHusbandName\": \"chndndn\",\n            \"relationship\": \"FATHER\",\n            \"gender\": \"MALE\",\n            \"permanentAddress\": \"ggggfg\",\n            \"emailId\": null,\n            \"isPrimaryOwner\": true,\n            \"additionalDetails\": {\n              \"ownerSequence\": 0,\n              \"name\": \"chndndn\",\n              \"aadhaarNumber\": null,\n              \"residentialAddress\": \"ggggfg\",\n              \"isprimaryowner\": true\n            },\n            \"dob\": null\n          }\n        ],\n        \"additionalDetail\": {\n          \"isImmovableStructure\": false,\n          \"firmRegistrationNo\": null,\n          \"legalStatus\": \"OWNED\",\n          \"noOfMachines\": 2,\n          \"gatNo\": \"2\",\n          \"ctsNo\": \"3\",\n          \"plotNo\": \"4\",\n          \"landownerName\": \"asit\",\n          \"propertyId\": \"\",\n          \"isSameAsPropertyOwner\": null,\n          \"tradeGstNo\": null,\n          \"totalMachines\": 2,\n          \"surveyNo\": \"1\",\n          \"propertyTaxNo\": null,\n          \"ownershipType\": null,\n          \"employeeNames\": [\n            \"Local Test Employee 1\",\n            \"Local Test Employee 2\"\n          ]\n        },\n        \"applicationDocuments\": [],\n        \"accessories\": null\n      },\n      \"wfDocuments\": []\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_create",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_create"
+              ]
+            },
+            "description": "Saves a draft application. Stores applicationNumber for the following requests."
+          },
+          "response": []
+        },
+        {
+          "name": "Search",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-WaitStatus",
+                "value": "INITIATED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "citizen",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_search?tenantId={{tenantId}}&applicationNumber={{applicationNumber}}",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_search"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "applicationNumber",
+                  "value": "{{applicationNumber}}"
+                }
+              ]
+            },
+            "description": "Reads the application back. The persister writes it a few seconds after the create call."
+          },
+          "response": []
+        },
+        {
+          "name": "APPLY",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "APPLY",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "INITIATED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "APPLIED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "citizen",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "Submits the draft. Adds propertyId, owner Aadhaar and address, and the required documents. All SMC checks run here."
+          },
+          "response": []
+        },
+        {
+          "name": "FORWARD: document verification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "FORWARD",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "APPLIED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "FIELDINSPECTION",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_DOC_VERIFIER",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "Needs role TL_DOC_VERIFIER."
+          },
+          "response": []
+        },
+        {
+          "name": "FORWARD: field inspection",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "FORWARD",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "FIELDINSPECTION",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "PENDINGHODVERIFICATION",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_FIELD_INSPECTOR",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "Needs role TL_FIELD_INSPECTOR."
+          },
+          "response": []
+        },
+        {
+          "name": "FORWARD: HOD verification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "FORWARD",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "PENDINGHODVERIFICATION",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "PENDINGAPPROVAL",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_HOD",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "Needs role TL_HOD. No user in pg.smc holds this role yet, so it is always sent as a made-up employee."
+          },
+          "response": []
+        },
+        {
+          "name": "APPROVE",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "APPROVE",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "PENDINGAPPROVAL",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "PENDINGPAYMENT",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_APPROVER",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "Needs role TL_APPROVER. The fee is calculated and the demand is created here."
+          },
+          "response": []
+        },
+        {
+          "name": "Fetch bill",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-WaitStatus",
+                "value": "PENDINGPAYMENT",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_CEMP",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{billingUrl}}/billing-service/bill/v2/_fetchbill?tenantId={{tenantId}}&consumerCode={{applicationNumber}}&businessService=TL",
+              "host": [
+                "{{billingUrl}}"
+              ],
+              "path": [
+                "billing-service",
+                "bill",
+                "v2",
+                "_fetchbill"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "consumerCode",
+                  "value": "{{applicationNumber}}"
+                },
+                {
+                  "key": "businessService",
+                  "value": "TL"
+                }
+              ]
+            },
+            "description": "billing-service generates the bill for the demand created at APPROVE. Saves billId and billAmount for the payment."
+          },
+          "response": []
+        },
+        {
+          "name": "Pay in cash",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_CEMP",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}},\n  \"Payment\": {\n    \"tenantId\": \"{{tenantId}}\",\n    \"paymentMode\": \"CASH\",\n    \"totalDue\": {{billAmount}},\n    \"totalAmountPaid\": {{billAmount}},\n    \"paidBy\": \"OWNER\",\n    \"payerName\": \"{{ownerName}}\",\n    \"mobileNumber\": \"{{ownerMobile}}\",\n    \"paymentDetails\": [\n      { \"businessService\": \"TL\", \"billId\": \"{{billId}}\", \"totalDue\": {{billAmount}}, \"totalAmountPaid\": {{billAmount}} }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{collectionUrl}}/collection-services/payments/_create",
+              "host": [
+                "{{collectionUrl}}"
+              ],
+              "path": [
+                "collection-services",
+                "payments",
+                "_create"
+              ]
+            },
+            "description": "collection-services creates the payment and receipt and publishes the payment event. billing-service then marks the demand paid and tl-services approves the license."
+          },
+          "response": []
+        },
+        {
+          "name": "Search: approved license",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-WaitStatus",
+                "value": "APPROVED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "APPROVED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-ExpectLicenseNumber",
+                "value": "true",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "citizen",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_search?tenantId={{tenantId}}&applicationNumber={{applicationNumber}}",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_search"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "applicationNumber",
+                  "value": "{{applicationNumber}}"
+                }
+              ]
+            },
+            "description": "Waits until the payment event is processed, then shows status APPROVED with the license number."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. Employee flow - counter application as TLSU1",
+      "description": "Everything is sent as the existing employee TLSU1 (pg.smc) with the roles it has in the database, except the HOD step: TLSU1 does not have TL_HOD.",
+      "item": [
+        {
+          "name": "Create at the counter (INITIATE)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Save",
+                "value": "application",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "INITIATED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "tlsu1",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}},\n  \"Licenses\": [\n    {\n      \"tenantId\": \"pg.smc\",\n      \"businessService\": \"TL\",\n      \"workflowCode\": \"TL_NEW\",\n      \"licenseType\": \"PERMANENT\",\n      \"applicationType\": \"NEW\",\n      \"action\": \"INITIATE\",\n      \"financialYear\": \"2026-27\",\n      \"commencementDate\": 1790812800000,\n      \"tradeName\": \"Cahndan\",\n      \"propertyId\": \"\",\n      \"tradeLicenseDetail\": {\n        \"channel\": \"COUNTER\",\n        \"structureType\": \"IMMOVABLE.PUCCA\",\n        \"subOwnerShipCategory\": \"INDIVIDUAL.SINGLEOWNER\",\n        \"noOfEmployees\": 2,\n        \"operationalArea\": 1,\n        \"surveyNo\": \"1\",\n        \"address\": {\n          \"tenantId\": \"pg.smc\",\n          \"addressLine1\": \"gh\",\n          \"pincode\": \"876655\",\n          \"locality\": {\n            \"code\": \"JLC476\"\n          }\n        },\n        \"tradeUnits\": [\n          {\n            \"tradeType\": \"GOODS.MANUFACTURE.SMC-01\",\n            \"uom\": null,\n            \"uomValue\": null\n          }\n        ],\n        \"owners\": [\n          {\n            \"name\": \"chndndn\",\n            \"mobileNumber\": \"7747474747\",\n            \"aadhaarNumber\": null,\n            \"fatherOrHusbandName\": \"chndndn\",\n            \"relationship\": \"FATHER\",\n            \"gender\": \"MALE\",\n            \"permanentAddress\": \"ggggfg\",\n            \"emailId\": null,\n            \"isPrimaryOwner\": true,\n            \"additionalDetails\": {\n              \"ownerSequence\": 0,\n              \"name\": \"chndndn\",\n              \"aadhaarNumber\": null,\n              \"residentialAddress\": \"ggggfg\",\n              \"isprimaryowner\": true\n            },\n            \"dob\": null\n          }\n        ],\n        \"additionalDetail\": {\n          \"isImmovableStructure\": true,\n          \"firmRegistrationNo\": null,\n          \"legalStatus\": \"OWNED\",\n          \"noOfMachines\": 2,\n          \"gatNo\": \"2\",\n          \"ctsNo\": \"3\",\n          \"plotNo\": \"4\",\n          \"landownerName\": \"asit\",\n          \"propertyId\": \"\",\n          \"isSameAsPropertyOwner\": null,\n          \"tradeGstNo\": null,\n          \"totalMachines\": 2,\n          \"surveyNo\": \"1\",\n          \"propertyTaxNo\": null,\n          \"ownershipType\": null\n        },\n        \"applicationDocuments\": [],\n        \"accessories\": null\n      },\n      \"wfDocuments\": []\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_create",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_create"
+              ]
+            },
+            "description": "channel is COUNTER. Stores applicationNumber."
+          },
+          "response": []
+        },
+        {
+          "name": "Search",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-WaitStatus",
+                "value": "INITIATED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "tlsu1",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_search?tenantId={{tenantId}}&applicationNumber={{applicationNumber}}",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_search"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "applicationNumber",
+                  "value": "{{applicationNumber}}"
+                }
+              ]
+            },
+            "description": "Employee search by application number."
+          },
+          "response": []
+        },
+        {
+          "name": "Search by status",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "tlsu1",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_search?tenantId={{tenantId}}&status=INITIATED&limit=20",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_search"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "status",
+                  "value": "INITIATED"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            },
+            "description": "An employee search needs at least one filter besides tenantId."
+          },
+          "response": []
+        },
+        {
+          "name": "APPLY",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "APPLY",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "INITIATED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "APPLIED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "tlsu1",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "Submits the draft. Adds propertyId, owner Aadhaar and address, and the required documents. All SMC checks run here."
+          },
+          "response": []
+        },
+        {
+          "name": "FORWARD: document verification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "FORWARD",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "APPLIED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "FIELDINSPECTION",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "tlsu1",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "Needs role TL_DOC_VERIFIER."
+          },
+          "response": []
+        },
+        {
+          "name": "FORWARD: field inspection",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "FORWARD",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "FIELDINSPECTION",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "PENDINGHODVERIFICATION",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "tlsu1",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "Needs role TL_FIELD_INSPECTOR."
+          },
+          "response": []
+        },
+        {
+          "name": "FORWARD: HOD verification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "FORWARD",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "PENDINGHODVERIFICATION",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "PENDINGAPPROVAL",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_HOD",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "Needs role TL_HOD. No user in pg.smc holds this role yet, so it is always sent as a made-up employee."
+          },
+          "response": []
+        },
+        {
+          "name": "APPROVE",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "APPROVE",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "PENDINGAPPROVAL",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "PENDINGPAYMENT",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "tlsu1",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "Needs role TL_APPROVER. The fee is calculated and the demand is created here."
+          },
+          "response": []
+        },
+        {
+          "name": "Fetch bill",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-WaitStatus",
+                "value": "PENDINGPAYMENT",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "tlsu1",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{billingUrl}}/billing-service/bill/v2/_fetchbill?tenantId={{tenantId}}&consumerCode={{applicationNumber}}&businessService=TL",
+              "host": [
+                "{{billingUrl}}"
+              ],
+              "path": [
+                "billing-service",
+                "bill",
+                "v2",
+                "_fetchbill"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "consumerCode",
+                  "value": "{{applicationNumber}}"
+                },
+                {
+                  "key": "businessService",
+                  "value": "TL"
+                }
+              ]
+            },
+            "description": "billing-service generates the bill for the demand created at APPROVE. Saves billId and billAmount for the payment."
+          },
+          "response": []
+        },
+        {
+          "name": "Pay in cash",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "tlsu1",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}},\n  \"Payment\": {\n    \"tenantId\": \"{{tenantId}}\",\n    \"paymentMode\": \"CASH\",\n    \"totalDue\": {{billAmount}},\n    \"totalAmountPaid\": {{billAmount}},\n    \"paidBy\": \"OWNER\",\n    \"payerName\": \"{{ownerName}}\",\n    \"mobileNumber\": \"{{ownerMobile}}\",\n    \"paymentDetails\": [\n      { \"businessService\": \"TL\", \"billId\": \"{{billId}}\", \"totalDue\": {{billAmount}}, \"totalAmountPaid\": {{billAmount}} }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{collectionUrl}}/collection-services/payments/_create",
+              "host": [
+                "{{collectionUrl}}"
+              ],
+              "path": [
+                "collection-services",
+                "payments",
+                "_create"
+              ]
+            },
+            "description": "collection-services creates the payment and receipt and publishes the payment event. billing-service then marks the demand paid and tl-services approves the license."
+          },
+          "response": []
+        },
+        {
+          "name": "Search: approved license",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-WaitStatus",
+                "value": "APPROVED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "APPROVED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-ExpectLicenseNumber",
+                "value": "true",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "tlsu1",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_search?tenantId={{tenantId}}&applicationNumber={{applicationNumber}}",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_search"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "applicationNumber",
+                  "value": "{{applicationNumber}}"
+                }
+              ]
+            },
+            "description": "Waits until the payment event is processed, then shows status APPROVED with the license number."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4. Alternate path - send back, resubmit, reject",
+      "description": "Self-contained: creates its own application and takes it through the send-back, resubmit and reject actions, plus one request that must be refused.",
+      "item": [
+        {
+          "name": "Create (INITIATE)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Save",
+                "value": "application",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "INITIATED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "citizen",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}},\n  \"Licenses\": [\n    {\n      \"tenantId\": \"pg.smc\",\n      \"businessService\": \"TL\",\n      \"workflowCode\": \"TL_NEW\",\n      \"licenseType\": \"PERMANENT\",\n      \"applicationType\": \"NEW\",\n      \"action\": \"INITIATE\",\n      \"financialYear\": \"2026-27\",\n      \"commencementDate\": 1790812800000,\n      \"tradeName\": \"Cahndan\",\n      \"propertyId\": \"\",\n      \"tradeLicenseDetail\": {\n        \"channel\": \"CITIZEN\",\n        \"structureType\": \"IMMOVABLE.PUCCA\",\n        \"subOwnerShipCategory\": \"INDIVIDUAL.SINGLEOWNER\",\n        \"noOfEmployees\": 2,\n        \"operationalArea\": 1,\n        \"surveyNo\": \"1\",\n        \"address\": {\n          \"tenantId\": \"pg.smc\",\n          \"addressLine1\": \"gh\",\n          \"pincode\": \"876655\",\n          \"locality\": {\n            \"code\": \"JLC476\"\n          }\n        },\n        \"tradeUnits\": [\n          {\n            \"tradeType\": \"GOODS.MANUFACTURE.SMC-01\",\n            \"uom\": null,\n            \"uomValue\": null\n          }\n        ],\n        \"owners\": [\n          {\n            \"name\": \"chndndn\",\n            \"mobileNumber\": \"7747474747\",\n            \"aadhaarNumber\": null,\n            \"fatherOrHusbandName\": \"chndndn\",\n            \"relationship\": \"FATHER\",\n            \"gender\": \"MALE\",\n            \"permanentAddress\": \"ggggfg\",\n            \"emailId\": null,\n            \"isPrimaryOwner\": true,\n            \"additionalDetails\": {\n              \"ownerSequence\": 0,\n              \"name\": \"chndndn\",\n              \"aadhaarNumber\": null,\n              \"residentialAddress\": \"ggggfg\",\n              \"isprimaryowner\": true\n            },\n            \"dob\": null\n          }\n        ],\n        \"additionalDetail\": {\n          \"isImmovableStructure\": true,\n          \"firmRegistrationNo\": null,\n          \"legalStatus\": \"OWNED\",\n          \"noOfMachines\": 2,\n          \"gatNo\": \"2\",\n          \"ctsNo\": \"3\",\n          \"plotNo\": \"4\",\n          \"landownerName\": \"asit\",\n          \"propertyId\": \"\",\n          \"isSameAsPropertyOwner\": null,\n          \"tradeGstNo\": null,\n          \"totalMachines\": 2,\n          \"surveyNo\": \"1\",\n          \"propertyTaxNo\": null,\n          \"ownershipType\": null\n        },\n        \"applicationDocuments\": [],\n        \"accessories\": null\n      },\n      \"wfDocuments\": []\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_create",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_create"
+              ]
+            },
+            "description": "Saves a draft application. Stores applicationNumber."
+          },
+          "response": []
+        },
+        {
+          "name": "APPLY",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "APPLY",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "INITIATED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "APPLIED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "citizen",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "By the citizen. Result: APPLIED."
+          },
+          "response": []
+        },
+        {
+          "name": "Negative: FORWARD with the wrong role",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "FORWARD",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "APPLIED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-ExpectHttp",
+                "value": "400",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_HOD",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "TL_HOD tries the document verifier step. Must be refused with INVALID ROLE."
+          },
+          "response": []
+        },
+        {
+          "name": "SENDBACKTOCITIZEN",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "SENDBACKTOCITIZEN",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "APPLIED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "CITIZENACTIONREQUIRED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_DOC_VERIFIER",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "By TL_DOC_VERIFIER. Result: CITIZENACTIONREQUIRED."
+          },
+          "response": []
+        },
+        {
+          "name": "RESUBMIT",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "RESUBMIT",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "CITIZENACTIONREQUIRED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "APPLIED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "citizen",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "By the citizen. Result: APPLIED."
+          },
+          "response": []
+        },
+        {
+          "name": "FORWARD: document verification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "FORWARD",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "APPLIED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "FIELDINSPECTION",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_DOC_VERIFIER",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "By TL_DOC_VERIFIER. Result: FIELDINSPECTION."
+          },
+          "response": []
+        },
+        {
+          "name": "SENDBACK",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "SENDBACK",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "FIELDINSPECTION",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "APPLIED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_FIELD_INSPECTOR",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "By TL_FIELD_INSPECTOR, one step back. Result: APPLIED."
+          },
+          "response": []
+        },
+        {
+          "name": "REJECT",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Action",
+                "value": "REJECT",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-From",
+                "value": "APPLIED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Expect",
+                "value": "REJECTED",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_DOC_VERIFIER",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{{updateBody}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tlUrl}}/tl-services/v1/_update",
+              "host": [
+                "{{tlUrl}}"
+              ],
+              "path": [
+                "tl-services",
+                "v1",
+                "_update"
+              ]
+            },
+            "description": "By TL_DOC_VERIFIER. Result: REJECTED, which ends the application."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "5. Supporting services",
+      "description": "Read-only calls that help when debugging.",
+      "item": [
+        {
+          "name": "Workflow history of the application",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_CEMP",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{workflowUrl}}/egov-workflow-v2/egov-wf/process/_search?tenantId={{tenantId}}&businessIds={{applicationNumber}}&history=true",
+              "host": [
+                "{{workflowUrl}}"
+              ],
+              "path": [
+                "egov-workflow-v2",
+                "egov-wf",
+                "process",
+                "_search"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "businessIds",
+                  "value": "{{applicationNumber}}"
+                },
+                {
+                  "key": "history",
+                  "value": "true"
+                }
+              ]
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Workflow configuration TL_NEW",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_CEMP",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{workflowUrl}}/egov-workflow-v2/egov-wf/businessservice/_search?tenantId={{tenantId}}&businessServices=TL_NEW",
+              "host": [
+                "{{workflowUrl}}"
+              ],
+              "path": [
+                "egov-workflow-v2",
+                "egov-wf",
+                "businessservice",
+                "_search"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "businessServices",
+                  "value": "TL_NEW"
+                }
+              ]
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Billing slabs (fees) of a business type",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_CEMP",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{calculatorUrl}}/tl-calculator/billingslab/_search?tenantId={{tenantId}}&tradeType=GOODS.MANUFACTURE.SMC-01",
+              "host": [
+                "{{calculatorUrl}}"
+              ],
+              "path": [
+                "tl-calculator",
+                "billingslab",
+                "_search"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "tradeType",
+                  "value": "GOODS.MANUFACTURE.SMC-01"
+                }
+              ]
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Demand of the application",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_CEMP",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{billingUrl}}/billing-service/demand/_search?tenantId={{tenantId}}&businessService=TL&consumerCode={{applicationNumber}}",
+              "host": [
+                "{{billingUrl}}"
+              ],
+              "path": [
+                "billing-service",
+                "demand",
+                "_search"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "businessService",
+                  "value": "TL"
+                },
+                {
+                  "key": "consumerCode",
+                  "value": "{{applicationNumber}}"
+                }
+              ]
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Payments of the application",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_CEMP",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{collectionUrl}}/collection-services/payments/TL/_search?tenantId={{tenantId}}&consumerCodes={{applicationNumber}}",
+              "host": [
+                "{{collectionUrl}}"
+              ],
+              "path": [
+                "collection-services",
+                "payments",
+                "TL",
+                "_search"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "consumerCodes",
+                  "value": "{{applicationNumber}}"
+                }
+              ]
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Localities of pg.smc",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-User",
+                "value": "employee",
+                "type": "text"
+              },
+              {
+                "key": "X-TL-Role",
+                "value": "TL_CEMP",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {{requestInfo}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{locationUrl}}/egov-location/location/v11/boundarys/_search?tenantId={{tenantId}}&hierarchyTypeCode=REVENUE&boundaryType=Locality",
+              "host": [
+                "{{locationUrl}}"
+              ],
+              "path": [
+                "egov-location",
+                "location",
+                "v11",
+                "boundarys",
+                "_search"
+              ],
+              "query": [
+                {
+                  "key": "tenantId",
+                  "value": "{{tenantId}}"
+                },
+                {
+                  "key": "hierarchyTypeCode",
+                  "value": "REVENUE"
+                },
+                {
+                  "key": "boundaryType",
+                  "value": "Locality"
+                }
+              ]
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "MDMS: trade types",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"RequestInfo\": {},\n  \"MdmsCriteria\": {\n    \"tenantId\": \"pg\",\n    \"moduleDetails\": [\n      {\n        \"moduleName\": \"TradeLicense\",\n        \"masterDetails\": [\n          {\n            \"name\": \"TradeType\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{mdmsUrl}}/egov-mdms-service/v1/_search",
+              "host": [
+                "{{mdmsUrl}}"
+              ],
+              "path": [
+                "egov-mdms-service",
+                "v1",
+                "_search"
+              ]
+            },
+            "description": ""
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

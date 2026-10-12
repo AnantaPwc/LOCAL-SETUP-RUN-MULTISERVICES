@@ -1,0 +1,54 @@
+{
+    "tenantId":  "pg",
+    "moduleName":  "common-masters",
+    "IdFormat":  [
+                     {
+                         "idname":  "tl.aplnumber.TL_NEW",
+                         "format":  "SMC-TL-[cy:yyyy-MM-dd]-[SEQ_EG_TL_APL]"
+                     },
+                     {
+                         "idname":  "tl.aplnumber.TTL_NEW",
+                         "format":  "SMC-TTL-[cy:yyyy-MM-dd]-[SEQ_EG_TL_APL]"
+                     },
+                     {
+                         "idname":  "tl.aplnumber.TL_RENEW",
+                         "format":  "SMC-TLR-[cy:yyyy-MM-dd]-[SEQ_EG_TL_APL]"
+                     },
+                     {
+                         "idname":  "tl.aplnumber.TTL_RENEW",
+                         "format":  "SMC-TTLR-[cy:yyyy-MM-dd]-[SEQ_EG_TL_APL]"
+                     },
+                     {
+                         "idname":  "tl.aplnumber.CLEAN_CERT",
+                         "format":  "SMC-CC-[cy:yyyy-MM-dd]-[SEQ_EG_TL_APL]"
+                     },
+                     {
+                         "idname":  "tl.aplnumber.HEALTH_NOC",
+                         "format":  "SMC-NOC-[cy:yyyy-MM-dd]-[SEQ_EG_TL_APL]"
+                     },
+                     {
+                         "idname":  "tl.aplnumber.ADV_PERM",
+                         "format":  "SMC-ADV-[cy:yyyy-MM-dd]-[SEQ_EG_TL_APL]"
+                     },
+                     {
+                         "idname":  "tl.licensenumber.TL_NEW",
+                         "format":  "SMC-TL-[cy:yyyy-MM-dd]-[SEQ_EG_PT_LN]"
+                     },
+                     {
+                         "idname":  "tl.licensenumber.TTL_NEW",
+                         "format":  "SMC-TTL-[cy:yyyy-MM-dd]-[SEQ_EG_PT_LN]"
+                     },
+                     {
+                         "idname":  "tl.licensenumber.CLEAN_CERT",
+                         "format":  "SMC-CC-[cy:yyyy-MM-dd]-[SEQ_EG_PT_LN]"
+                     },
+                     {
+                         "idname":  "tl.licensenumber.HEALTH_NOC",
+                         "format":  "SMC-NOC-[cy:yyyy-MM-dd]-[SEQ_EG_PT_LN]"
+                     },
+                     {
+                         "idname":  "tl.licensenumber.ADV_PERM",
+                         "format":  "SMC-ADV-[cy:yyyy-MM-dd]-[SEQ_EG_PT_LN]"
+                     }
+                 ]
+}

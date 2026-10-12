@@ -1,0 +1,56 @@
+{
+  "tenantId": "pg",
+  "moduleName": "BillingService",
+  "TaxHeadMaster": [
+    {
+      "category": "FEE",
+      "service": "TL",
+      "name": "Cleanliness certificate fee",
+      "code": "TL_CLEAN_CERT_FEE",
+      "isDebit": false,
+      "isActualDemand": true,
+      "order": "2",
+      "isRequired": false
+    },
+    {
+      "category": "FEE",
+      "service": "TL",
+      "name": "Health NOC fee",
+      "code": "TL_NOC_FEE",
+      "isDebit": false,
+      "isActualDemand": true,
+      "order": "2",
+      "isRequired": false
+    },
+    {
+      "category": "FEE",
+      "service": "TL",
+      "name": "Paper publicity charge",
+      "code": "TL_NOC_PUBLICITY_FEE",
+      "isDebit": false,
+      "isActualDemand": true,
+      "order": "3",
+      "isRequired": false
+    },
+    {
+      "category": "FEE",
+      "service": "TL",
+      "name": "Advertisement charge",
+      "code": "TL_ADV_CHARGE",
+      "isDebit": false,
+      "isActualDemand": true,
+      "order": "2",
+      "isRequired": false
+    },
+    {
+      "category": "FEE",
+      "service": "TL",
+      "name": "Advertisement permission fee",
+      "code": "TL_ADV_PERMISSION_FEE",
+      "isDebit": false,
+      "isActualDemand": true,
+      "order": "3",
+      "isRequired": false
+    }
+  ]
+}

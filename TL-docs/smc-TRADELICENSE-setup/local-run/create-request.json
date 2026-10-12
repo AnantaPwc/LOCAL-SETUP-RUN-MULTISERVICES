@@ -1,0 +1,107 @@
+{
+    "Licenses": [
+        {
+            "tenantId": "pg.smc",
+            "businessService": "TL",
+            "workflowCode": "TL_NEW",
+            "licenseType": "PERMANENT",
+            "applicationType": "NEW",
+            "action": "INITIATE",
+            "financialYear": "2026-27",
+            "commencementDate": 1790812800000,
+            "tradeName": "Cahndan",
+            "propertyId": "",
+            "tradeLicenseDetail": {
+                "channel": "CITIZEN",
+                "structureType": "IMMOVABLE.PUCCA",
+                "subOwnerShipCategory": "INDIVIDUAL.SINGLEOWNER",
+                "noOfEmployees": 2,
+                "operationalArea": 1,
+                "surveyNo": "1",
+                "address": {
+                    "tenantId": "pg.smc",
+                    "addressLine1": "gh",
+                    "pincode": "876655",
+                    "locality": {
+                        "code": "JLC476"
+                    }
+                },
+                "tradeUnits": [
+                    {
+                        "tradeType": "GOODS.MANUFACTURE.SMC-01",
+                        "uom": null,
+                        "uomValue": null
+                    }
+                ],
+                "owners": [
+                    {
+                        "name": "chndndn",
+                        "mobileNumber": "7747474747",
+                        "aadhaarNumber": null,
+                        "fatherOrHusbandName": "chndndn",
+                        "relationship": "FATHER",
+                        "gender": "MALE",
+                        "permanentAddress": "ggggfg",
+                        "emailId": null,
+                        "isPrimaryOwner": true,
+                        "additionalDetails": {
+                            "ownerSequence": 0,
+                            "name": "chndndn",
+                            "aadhaarNumber": null,
+                            "residentialAddress": "ggggfg",
+                            "isprimaryowner": true
+                        },
+                        "dob": null
+                    }
+                ],
+                "additionalDetail": {
+                    "isImmovableStructure": true,
+                    "firmRegistrationNo": null,
+                    "legalStatus": "OWNED",
+                    "noOfMachines": 2,
+                    "gatNo": "2",
+                    "ctsNo": "3",
+                    "plotNo": "4",
+                    "landownerName": "asit",
+                    "propertyId": "",
+                    "isSameAsPropertyOwner": null,
+                    "tradeGstNo": null,
+                    "totalMachines": 2,
+                    "surveyNo": "1",
+                    "propertyTaxNo": null,
+                    "ownershipType": null
+                },
+                "applicationDocuments": [],
+                "accessories": null
+            },
+            "wfDocuments": []
+        }
+    ],
+    "RequestInfo": {
+        "apiId": "Rainmaker",
+        "authToken": "not-checked-locally",
+        "userInfo": {
+            "id": 17253,
+            "uuid": "57a3e9c0-fc9e-480c-bf12-2d6a964d134c",
+            "userName": "8908011908",
+            "name": "OWNER",
+            "mobileNumber": "8908011908",
+            "emailId": null,
+            "locale": null,
+            "type": "CITIZEN",
+            "roles": [
+                {
+                    "name": "Citizen",
+                    "code": "CITIZEN",
+                    "tenantId": "pg"
+                }
+            ],
+            "active": true,
+            "tenantId": "pg",
+            "permanentCity": null
+        },
+        "msgId": "1790867505532|en_IN",
+        "plainAccessRequest": {}
+    }
+}
+

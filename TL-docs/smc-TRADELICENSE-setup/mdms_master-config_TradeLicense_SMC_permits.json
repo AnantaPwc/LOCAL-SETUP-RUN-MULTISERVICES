@@ -1,0 +1,39 @@
+{
+  "TradeLicense": {
+    "NocBusinessType": {
+      "masterName": "NocBusinessType",
+      "isStateLevel": true,
+      "uniqueKeys": [
+        "$.code"
+      ]
+    },
+    "AdvertisementRate": {
+      "masterName": "AdvertisementRate",
+      "isStateLevel": true,
+      "uniqueKeys": [
+        "$.code"
+      ]
+    },
+    "AdvertisementReason": {
+      "masterName": "AdvertisementReason",
+      "isStateLevel": true,
+      "uniqueKeys": [
+        "$.code"
+      ]
+    },
+    "AdvertisementLocation": {
+      "masterName": "AdvertisementLocation",
+      "isStateLevel": true,
+      "uniqueKeys": [
+        "$.code"
+      ]
+    },
+    "FlatCharges": {
+      "masterName": "FlatCharges",
+      "isStateLevel": true,
+      "uniqueKeys": [
+        "$.code"
+      ]
+    }
+  }
+}

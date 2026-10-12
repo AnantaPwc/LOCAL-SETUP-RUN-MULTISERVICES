@@ -1,0 +1,99 @@
+{
+  "RequestInfo": {
+    "apiId": "Rainmaker",
+    "authToken": "{{authToken}}"
+  },
+  "tenantId": "pg",
+  "messages": [
+    {
+      "code": "COMMON_MASTERS_STRUCTURETYPE_MOVABLE_HANDCART",
+      "message": "Hand cart",
+      "module": "rainmaker-common",
+      "locale": "en_IN"
+    },
+    {
+      "code": "COMMON_MASTERS_STRUCTURETYPE_MOVABLE_VEHICLE",
+      "message": "Vehicle",
+      "module": "rainmaker-common",
+      "locale": "en_IN"
+    },
+    {
+      "code": "COMMON_MASTERS_STRUCTURETYPE_MOVABLE_STALL",
+      "message": "Stall",
+      "module": "rainmaker-common",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_NEW_SEVENTWELVEEXTRACT",
+      "message": "Current 7/12 extract / City Survey extract",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_NEW_PROPERTYEXTRACT",
+      "message": "Property extract",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_NEW_AADHAARCARD",
+      "message": "Aadhaar card",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_NEW_PROPERTYTAXRECEIPT",
+      "message": "Property tax bill and paid receipt",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_NEW_LANDOWNERCONSENT",
+      "message": "Consent letter from landowner",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_NEW_SHOPACTLICENSE",
+      "message": "Shop Act license",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_NEW_PREVIOUSLICENSE",
+      "message": "Previous license copy",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_LEGALSTATUS_OWNED",
+      "message": "Owned",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_LEGALSTATUS_RENTED",
+      "message": "Rented",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_LEGALSTATUS_LEASED",
+      "message": "Leased",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TL_LEGALSTATUS_OTHER",
+      "message": "Other",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "ACCESSCONTROL_ROLES_ROLES_TL_HOD",
+      "message": "TL Head of Department",
+      "module": "rainmaker-common",
+      "locale": "en_IN"
+    }
+  ]
+}

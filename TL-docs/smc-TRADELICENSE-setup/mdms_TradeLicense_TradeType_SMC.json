@@ -1,0 +1,1596 @@
+{
+  "tenantId": "pg",
+  "moduleName": "TradeLicense",
+  "TradeType": [
+    {
+      "name": "Printing press",
+      "code": "GOODS.MANUFACTURE.SMC-01",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Flour mill / Grinding mill",
+      "code": "GOODS.MANUFACTURE.SMC-02",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Fabrication / Welding",
+      "code": "GOODS.MANUFACTURE.SMC-03",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Lathe machine",
+      "code": "GOODS.MANUFACTURE.SMC-04",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Ice candy manufacturing",
+      "code": "GOODS.MANUFACTURE.SMC-05",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Soda / lemon drinks",
+      "code": "GOODS.MANUFACTURE.SMC-06",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Pepsi (ice pop) manufacturing",
+      "code": "GOODS.MANUFACTURE.SMC-07",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Floor tile / stone cutting",
+      "code": "GOODS.MANUFACTURE.SMC-08",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Tyre vulcanizing",
+      "code": "SERVICES.GENERAL.SMC-09",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Bidi factory",
+      "code": "GOODS.MANUFACTURE.SMC-10",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Rava (semolina) mill",
+      "code": "GOODS.MANUFACTURE.SMC-11",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Cotton carding / ginning",
+      "code": "GOODS.MANUFACTURE.SMC-12",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Motor body builder",
+      "code": "GOODS.MANUFACTURE.SMC-13",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Salon – Non-AC",
+      "code": "SERVICES.GENERAL.SMC-14",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Salon – AC",
+      "code": "SERVICES.GENERAL.SMC-15",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Spa with beauty parlour",
+      "code": "SERVICES.GENERAL.SMC-16",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Beauty parlour",
+      "code": "SERVICES.GENERAL.SMC-17",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Kerosene sale",
+      "code": "GOODS.RETAIL.SMC-18",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Bakery",
+      "code": "GOODS.RETAIL.SMC-19",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Mattress (gadi) factory",
+      "code": "GOODS.MANUFACTURE.SMC-20",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Leather sale",
+      "code": "GOODS.RETAIL.SMC-21",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Meat sale",
+      "code": "GOODS.RETAIL.SMC-22",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Lime (chuna) making",
+      "code": "GOODS.MANUFACTURE.SMC-23",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Battery charging & repairing",
+      "code": "SERVICES.GENERAL.SMC-24",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Wood charcoal",
+      "code": "GOODS.MANUFACTURE.SMC-25",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Gas sale",
+      "code": "GOODS.RETAIL.SMC-26",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Mess (khanaval) / Canteen",
+      "code": "SERVICES.HOSPITALITY.SMC-27",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Farsan (snacks) sale, sweet shop",
+      "code": "GOODS.RETAIL.SMC-28",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Restaurant – small (500–1,000 sq. ft.)",
+      "code": "SERVICES.HOSPITALITY.SMC-29",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Restaurant – large (> 1,000 sq. ft.)",
+      "code": "SERVICES.HOSPITALITY.SMC-30",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Restaurant & bar",
+      "code": "SERVICES.HOSPITALITY.SMC-31",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Restaurant with lodging",
+      "code": "SERVICES.HOSPITALITY.SMC-32",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Lodging",
+      "code": "SERVICES.HOSPITALITY.SMC-33",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Laundry",
+      "code": "SERVICES.GENERAL.SMC-34",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Laundry with dry cleaning",
+      "code": "SERVICES.GENERAL.SMC-35",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Lime processing",
+      "code": "GOODS.MANUFACTURE.SMC-36",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Vehicle service station",
+      "code": "SERVICES.GENERAL.SMC-37",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Spice production / chilli grinding",
+      "code": "GOODS.MANUFACTURE.SMC-38",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Electroplating / coating",
+      "code": "GOODS.MANUFACTURE.SMC-39",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Furniture",
+      "code": "GOODS.MANUFACTURE.SMC-40",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Timber / storage yard (Vakhar)",
+      "code": "GOODS.WHOLESALE.SMC-41",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Fireworks sale",
+      "code": "GOODS.RETAIL.SMC-42",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Petrol pump",
+      "code": "GOODS.RETAIL.SMC-43",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Puffed rice (murmure) making",
+      "code": "GOODS.MANUFACTURE.SMC-44",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Lodging & bar",
+      "code": "SERVICES.HOSPITALITY.SMC-45",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Colour photo lab",
+      "code": "SERVICES.GENERAL.SMC-46",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Wheel alignment",
+      "code": "SERVICES.GENERAL.SMC-47",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Hotel – large (> 1,000 sq. ft.)",
+      "code": "SERVICES.HOSPITALITY.SMC-48",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Hotel – small (< 1,000 sq. ft.)",
+      "code": "SERVICES.HOSPITALITY.SMC-49",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Hotel & bar",
+      "code": "SERVICES.HOSPITALITY.SMC-50",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Hotel & lodging",
+      "code": "SERVICES.HOSPITALITY.SMC-51",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Country liquor shop",
+      "code": "GOODS.RETAIL.SMC-52",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    },
+    {
+      "name": "Wine shop",
+      "code": "GOODS.RETAIL.SMC-53",
+      "uom": null,
+      "applicationDocument": [
+        {
+          "applicationType": "NEW",
+          "documentList": [
+            "SEVENTWELVEEXTRACT",
+            "PROPERTYEXTRACT",
+            "AADHAARCARD",
+            "PROPERTYTAXRECEIPT",
+            "LANDOWNERCONSENT",
+            "SHOPACTLICENSE"
+          ]
+        },
+        {
+          "applicationType": "RENEWAL",
+          "documentList": [
+            "AADHAARCARD",
+            "SHOPACTLICENSE",
+            "PREVIOUSLICENSE"
+          ]
+        }
+      ],
+      "verificationDocument": [],
+      "active": true,
+      "type": "TL",
+      "validityPeriod": null
+    }
+  ]
+}

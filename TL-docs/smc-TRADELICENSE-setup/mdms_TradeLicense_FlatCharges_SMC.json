@@ -1,0 +1,19 @@
+{
+  "tenantId": "pg",
+  "moduleName": "TradeLicense",
+  "FlatCharges": [
+    {
+      "code": "CLEAN_CERT",
+      "name": "Cleanliness certificate, for one year (Annexure 2, item 3)",
+      "amount": 1000,
+      "active": true
+    },
+    {
+      "code": "PAPER_PUBLICITY",
+      "name": "Newspaper advertisement publicity for an offensive business (Annexure 2, item 1)",
+      "amount": 2000,
+      "toBeVerified": true,
+      "active": true
+    }
+  ]
+}

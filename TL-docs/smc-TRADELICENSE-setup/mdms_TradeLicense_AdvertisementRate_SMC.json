@@ -1,0 +1,176 @@
+{
+  "tenantId": "pg",
+  "moduleName": "TradeLicense",
+  "AdvertisementRate": [
+    {
+      "code": "ADVERTISEMENT.DISPLAY.BANNER",
+      "adType": "BANNER",
+      "name": "Banner",
+      "rateUnit": "PER_DAY",
+      "sizeRequired": true,
+      "structural": false,
+      "freeAreaSqft": 100,
+      "maxSqft": 300,
+      "permissionFee": 250,
+      "rates": [
+        {
+          "reasonCategory": "GOVT_PUBLIC",
+          "baseRate": 0,
+          "excessRate": 0,
+          "permissionFeeWaived": true
+        },
+        {
+          "reasonCategory": "RELIGIOUS_SOCIAL",
+          "baseRate": 500,
+          "excessRate": 5
+        },
+        {
+          "reasonCategory": "POLITICAL_ELECTION",
+          "baseRate": 1500,
+          "excessRate": 6
+        },
+        {
+          "reasonCategory": "COMMERCIAL",
+          "baseRate": 2000,
+          "excessRate": 7
+        }
+      ]
+    },
+    {
+      "code": "ADVERTISEMENT.DISPLAY.FLEX",
+      "adType": "FLEX",
+      "name": "Flex",
+      "rateUnit": "PER_DAY",
+      "sizeRequired": true,
+      "structural": false,
+      "freeAreaSqft": 100,
+      "maxSqft": 300,
+      "permissionFee": 250,
+      "rates": [
+        {
+          "reasonCategory": "GOVT_PUBLIC",
+          "baseRate": 0,
+          "excessRate": 0,
+          "permissionFeeWaived": true
+        },
+        {
+          "reasonCategory": "RELIGIOUS_SOCIAL",
+          "baseRate": 500,
+          "excessRate": 5
+        },
+        {
+          "reasonCategory": "POLITICAL_ELECTION",
+          "baseRate": 1500,
+          "excessRate": 6
+        },
+        {
+          "reasonCategory": "COMMERCIAL",
+          "baseRate": 2000,
+          "excessRate": 7
+        }
+      ]
+    },
+    {
+      "code": "ADVERTISEMENT.DISPLAY.FLAGS",
+      "adType": "FLAGS",
+      "name": "Flags",
+      "rateUnit": "PER_UNIT",
+      "sizeRequired": false,
+      "structural": false,
+      "freeAreaSqft": null,
+      "maxSqft": null,
+      "permissionFee": 250,
+      "rates": [
+        {
+          "reasonCategory": "GOVT_PUBLIC",
+          "baseRate": 0,
+          "excessRate": 0,
+          "permissionFeeWaived": true
+        },
+        {
+          "reasonCategory": "RELIGIOUS_SOCIAL",
+          "baseRate": 50,
+          "excessRate": 0
+        },
+        {
+          "reasonCategory": "POLITICAL_ELECTION",
+          "baseRate": 50,
+          "excessRate": 0
+        },
+        {
+          "reasonCategory": "COMMERCIAL",
+          "baseRate": 50,
+          "excessRate": 0
+        }
+      ]
+    },
+    {
+      "code": "ADVERTISEMENT.DISPLAY.HOARDING",
+      "adType": "HOARDING",
+      "name": "Permanent hoarding",
+      "rateUnit": "PER_YEAR",
+      "sizeRequired": true,
+      "structural": true,
+      "freeAreaSqft": null,
+      "maxSqft": 400,
+      "permissionFee": 2000,
+      "rates": [
+        {
+          "reasonCategory": "GOVT_PUBLIC",
+          "baseRate": 0,
+          "excessRate": 0,
+          "permissionFeeWaived": true
+        },
+        {
+          "reasonCategory": "RELIGIOUS_SOCIAL",
+          "baseRate": 20,
+          "excessRate": 0
+        },
+        {
+          "reasonCategory": "POLITICAL_ELECTION",
+          "baseRate": 20,
+          "excessRate": 0
+        },
+        {
+          "reasonCategory": "COMMERCIAL",
+          "baseRate": 20,
+          "excessRate": 0
+        }
+      ]
+    },
+    {
+      "code": "ADVERTISEMENT.DISPLAY.LED",
+      "adType": "LED",
+      "name": "LED screen / wall",
+      "rateUnit": "PER_MONTH",
+      "sizeRequired": true,
+      "structural": true,
+      "freeAreaSqft": null,
+      "maxSqft": 100,
+      "permissionFee": 3000,
+      "rates": [
+        {
+          "reasonCategory": "GOVT_PUBLIC",
+          "baseRate": 0,
+          "excessRate": 0,
+          "permissionFeeWaived": true
+        },
+        {
+          "reasonCategory": "RELIGIOUS_SOCIAL",
+          "baseRate": 20,
+          "excessRate": 0
+        },
+        {
+          "reasonCategory": "POLITICAL_ELECTION",
+          "baseRate": 20,
+          "excessRate": 0
+        },
+        {
+          "reasonCategory": "COMMERCIAL",
+          "baseRate": 20,
+          "excessRate": 0
+        }
+      ]
+    }
+  ]
+}

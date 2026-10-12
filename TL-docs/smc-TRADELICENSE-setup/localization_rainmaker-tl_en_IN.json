@@ -1,0 +1,495 @@
+{
+  "RequestInfo": {
+    "apiId": "Rainmaker",
+    "authToken": "{{authToken}}"
+  },
+  "tenantId": "pg",
+  "messages": [
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS",
+      "message": "Goods",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES",
+      "message": "Services",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_MANUFACTURE",
+      "message": "Manufacturing",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_RETAIL",
+      "message": "Retail",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_WHOLESALE",
+      "message": "Wholesale",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GENERAL",
+      "message": "General services",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_HOSPITALITY",
+      "message": "Hotel, restaurant & lodging",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-01",
+      "message": "Printing press",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-02",
+      "message": "Flour mill / Grinding mill",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-03",
+      "message": "Fabrication / Welding",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-04",
+      "message": "Lathe machine",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-05",
+      "message": "Ice candy manufacturing",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-06",
+      "message": "Soda / lemon drinks",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-07",
+      "message": "Pepsi (ice pop) manufacturing",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-08",
+      "message": "Floor tile / stone cutting",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_GENERAL_SMC-09",
+      "message": "Tyre vulcanizing",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-10",
+      "message": "Bidi factory",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-11",
+      "message": "Rava (semolina) mill",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-12",
+      "message": "Cotton carding / ginning",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-13",
+      "message": "Motor body builder",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_GENERAL_SMC-14",
+      "message": "Salon – Non-AC",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_GENERAL_SMC-15",
+      "message": "Salon – AC",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_GENERAL_SMC-16",
+      "message": "Spa with beauty parlour",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_GENERAL_SMC-17",
+      "message": "Beauty parlour",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_RETAIL_SMC-18",
+      "message": "Kerosene sale",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_RETAIL_SMC-19",
+      "message": "Bakery",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-20",
+      "message": "Mattress (gadi) factory",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_RETAIL_SMC-21",
+      "message": "Leather sale",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_RETAIL_SMC-22",
+      "message": "Meat sale",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-23",
+      "message": "Lime (chuna) making",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_GENERAL_SMC-24",
+      "message": "Battery charging & repairing",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-25",
+      "message": "Wood charcoal",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_RETAIL_SMC-26",
+      "message": "Gas sale",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_HOSPITALITY_SMC-27",
+      "message": "Mess (khanaval) / Canteen",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_RETAIL_SMC-28",
+      "message": "Farsan (snacks) sale, sweet shop",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_HOSPITALITY_SMC-29",
+      "message": "Restaurant – small (500–1,000 sq. ft.)",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_HOSPITALITY_SMC-30",
+      "message": "Restaurant – large (> 1,000 sq. ft.)",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_HOSPITALITY_SMC-31",
+      "message": "Restaurant & bar",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_HOSPITALITY_SMC-32",
+      "message": "Restaurant with lodging",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_HOSPITALITY_SMC-33",
+      "message": "Lodging",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_GENERAL_SMC-34",
+      "message": "Laundry",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_GENERAL_SMC-35",
+      "message": "Laundry with dry cleaning",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-36",
+      "message": "Lime processing",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_GENERAL_SMC-37",
+      "message": "Vehicle service station",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-38",
+      "message": "Spice production / chilli grinding",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-39",
+      "message": "Electroplating / coating",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-40",
+      "message": "Furniture",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_WHOLESALE_SMC-41",
+      "message": "Timber / storage yard (Vakhar)",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_RETAIL_SMC-42",
+      "message": "Fireworks sale",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_RETAIL_SMC-43",
+      "message": "Petrol pump",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-44",
+      "message": "Puffed rice (murmure) making",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_HOSPITALITY_SMC-45",
+      "message": "Lodging & bar",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_GENERAL_SMC-46",
+      "message": "Colour photo lab",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_GENERAL_SMC-47",
+      "message": "Wheel alignment",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_HOSPITALITY_SMC-48",
+      "message": "Hotel – large (> 1,000 sq. ft.)",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_HOSPITALITY_SMC-49",
+      "message": "Hotel – small (< 1,000 sq. ft.)",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_HOSPITALITY_SMC-50",
+      "message": "Hotel & bar",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_HOSPITALITY_SMC-51",
+      "message": "Hotel & lodging",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_RETAIL_SMC-52",
+      "message": "Country liquor shop",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_RETAIL_SMC-53",
+      "message": "Wine shop",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_MOVABLE",
+      "message": "Movable trade",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M01",
+      "message": "Pan Shop",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M02",
+      "message": "Vada Pav Sales",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M03",
+      "message": "Tea Sales",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M04",
+      "message": "Artificial Jewellery",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M05",
+      "message": "Ice Cream Sales",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M06",
+      "message": "Pav Bhaji and Pizza",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M07",
+      "message": "Cold-Pressed Oil Mill",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M08",
+      "message": "Omelette Pav",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M09",
+      "message": "Idli and Dosa",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M10",
+      "message": "Vada Pav and Tea",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M11",
+      "message": "Country Liquor Shop",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M12",
+      "message": "Cake Sales",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_MOVABLE_SMC-M13",
+      "message": "Laundry",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_MOVABLE_SMC-M14",
+      "message": "Welding and Fabrication",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M15",
+      "message": "Pav Bhaji",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M16",
+      "message": "Samosa Shop",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M17",
+      "message": "Pani Puri",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M18",
+      "message": "Bhel Sales",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_MOVABLE_SMC-M19",
+      "message": "Fabrication",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_MOVABLE_SMC-M20",
+      "message": "Beauty Parlour",
+      "module": "rainmaker-tl",
+      "locale": "en_IN"
+    }
+  ]
+}

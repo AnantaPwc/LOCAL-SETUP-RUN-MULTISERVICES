@@ -1,0 +1,369 @@
+{
+  "RequestInfo": {
+    "apiId": "Rainmaker",
+    "authToken": "{{authToken}}"
+  },
+  "tenantId": "pg",
+  "messages": [
+    {
+      "code": "TRADELICENSE_TRADETYPE_CLEANLINESS_CERTIFICATE_SMC-C01",
+      "message": "हॉटेल व लॉजिंग",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_CLEANLINESS_CERTIFICATE_SMC-C02",
+      "message": "वाईन शॉप",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_CLEANLINESS_CERTIFICATE_SMC-C03",
+      "message": "बार",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_CLEANLINESS_CERTIFICATE_SMC-C04",
+      "message": "देशी दारू दुकान",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N01",
+      "message": "क्लिनिक / डे केअर",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N02",
+      "message": "नर्सिंग होम / हॉस्पिटल / प्रसूतिगृह",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N03",
+      "message": "मल्टी स्पेशालिटी हॉस्पिटल",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N04",
+      "message": "पॅथॉलॉजी लॅब",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N05",
+      "message": "मेडिकल स्टोअर",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N06",
+      "message": "सोनोग्राफी, एक्स-रे व डायग्नोस्टिक सेंटर",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N07",
+      "message": "मुद्रणालय / प्रिंटिंग प्रेस",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N08",
+      "message": "कृषी सेवा केंद्र",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N09",
+      "message": "पिठाची गिरणी / थ्री फेज वीज जोडणी",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N10",
+      "message": "सलून Non AC",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N11",
+      "message": "सलून AC",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N12",
+      "message": "ब्युटी पार्लर",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N13",
+      "message": "स्पा पार्लर / ब्युटी पार्लर",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N14",
+      "message": "पेट्रोल पंप",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N15",
+      "message": "चिकन / मटण व मासे विक्री व्यवसाय",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N16",
+      "message": "वेल्डिंग व फॅब्रिकेशन",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N17",
+      "message": "ॲक्वा / पॅकेज्ड पिण्याचे पाणी प्लांट",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N18",
+      "message": "रेस्टॉरंट",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N19",
+      "message": "हॉटेल, लॉज",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N20",
+      "message": "बिअर बार",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N21",
+      "message": "वाईन शॉप",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N22",
+      "message": "चर्मोद्योग",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N23",
+      "message": "पेस्ट कंट्रोल सेवा",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_NOC_HEALTH_SMC-N24",
+      "message": "बर्फ कारखाना",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_ADVERTISEMENT_DISPLAY_BANNER",
+      "message": "बॅनर",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_ADVERTISEMENT_DISPLAY_FLEX",
+      "message": "फ्लेक्स",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_ADVERTISEMENT_DISPLAY_FLAGS",
+      "message": "झेंडे",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_ADVERTISEMENT_DISPLAY_HOARDING",
+      "message": "कायमस्वरूपी होर्डिंग",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_ADVERTISEMENT_DISPLAY_LED",
+      "message": "एलईडी स्क्रीन / वॉल",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_SERVICE_CLEAN_CERT",
+      "message": "स्वच्छता प्रमाणपत्र",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_SERVICE_HEALTH_NOC",
+      "message": "ना हरकत प्रमाणपत्र (आरोग्य परवाना)",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_SERVICE_ADV_PERM",
+      "message": "जाहिरात / होर्डिंग / फ्लेक्स / झेंडे परवानगी",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "WF_NEWTL_PENDINGTPVERIFICATION",
+      "message": "नगररचना विभाग प्रमुखांकडे प्रलंबित",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "WF_NEWTL_PENDINGHODVERIFICATION",
+      "message": "परवाना विभाग प्रमुखांकडे प्रलंबित",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "WF_NEWTL_PUBLICITYPAYMENTPENDING",
+      "message": "वृत्तपत्र प्रसिद्धी शुल्क भरणे बाकी",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "WF_NEWTL_OBJECTIONWINDOW",
+      "message": "सूचना प्रसिद्ध, हरकती मागविल्या",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "WF_NEWTL_HEARING",
+      "message": "हरकत प्राप्त, सुनावणी",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "WF_NEWTL_MARK_OFFENSIVE",
+      "message": "उपद्रवकारक व्यवसाय म्हणून नोंद",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "WF_NEWTL_NO_OBJECTION",
+      "message": "हरकत प्राप्त नाही",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "WF_NEWTL_OBJECTION_RECEIVED",
+      "message": "हरकत प्राप्त",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_PROPERTYEXTRACT",
+      "message": "मालमत्ता उतारा",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_PROPERTYTAXRECEIPT",
+      "message": "मालमत्ता कर बिल व भरणा पावती",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_LIFTLICENSE",
+      "message": "लिफ्ट परवाना (लिफ्ट असल्यास)",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_BUILDINGPERMISSION",
+      "message": "बांधकाम परवानगी आदेश व मंजूर नकाशा",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_ADCOPY",
+      "message": "प्रदर्शित करावयाच्या जाहिरात / बॅनर / होर्डिंग / फ्लेक्सची प्रत",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_NODUESCERTIFICATE",
+      "message": "थकबाकी नसल्याचा दाखला (मालमत्ता व पाणी कर)",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_GOVTNOC",
+      "message": "शासकीय / निमशासकीय संस्थेचे ना हरकत प्रमाणपत्र",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_STABILITYCERTIFICATE",
+      "message": "नोंदणीकृत स्ट्रक्चरल इंजिनिअरचे स्थैर्य प्रमाणपत्र",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_ELECTRICALSAFETYCERTIFICATE",
+      "message": "विद्युत सुरक्षा प्रमाणपत्र",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_SELFDECLARATION",
+      "message": "स्वयंघोषणापत्र",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_CLEAN_CERT_FEE",
+      "message": "स्वच्छता प्रमाणपत्र शुल्क",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_NOC_FEE",
+      "message": "ना हरकत प्रमाणपत्र शुल्क",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_NOC_PUBLICITY_FEE",
+      "message": "वृत्तपत्र प्रसिद्धी शुल्क",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_ADV_CHARGE",
+      "message": "जाहिरात शुल्क",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_ADV_PERMISSION_FEE",
+      "message": "परवानगी शुल्क",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "ACCESSCONTROL_ROLES_ROLES_TP_HOD",
+      "message": "नगररचना विभाग प्रमुख",
+      "module": "rainmaker-common",
+      "locale": "mr_IN"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+diff --git a/frontend/upyog-ui/web/micro-ui-internals/packages/modules/tl/src/pages/citizen/Create/TLAcknowledgement.js b/frontend/upyog-ui/web/micro-ui-internals/packages/modules/tl/src/pages/citizen/Create/TLAcknowledgement.js
+index b78217db0e..064ec97e59 100644
+--- a/frontend/upyog-ui/web/micro-ui-internals/packages/modules/tl/src/pages/citizen/Create/TLAcknowledgement.js
++++ b/frontend/upyog-ui/web/micro-ui-internals/packages/modules/tl/src/pages/citizen/Create/TLAcknowledgement.js
+@@ -32,6 +32,17 @@ const BannerPicker = (props) => {
+   );
+ };
+ 
++// Shows why the server refused the request (e.g. NULL_PROPERTYID), instead of only the generic failure text.
++// A localization message for the error code is used when one exists, otherwise the server's own message.
++const ApiErrors = ({ error, t }) => {
++  const errors = error?.response?.data?.Errors || [];
++  return errors.map((e, index) => (
++    <CardText key={`${e?.code}-${index}`} style={{ color: "#d4351c" }}>
++      {e?.code && t(e.code) !== e.code ? t(e.code) : e?.message || e?.code}
++    </CardText>
++  ));
++};
++
+ const TLAcknowledgement = ({ data, onSuccess, onUpdateSuccess }) => {
+   const { t } = useTranslation();
+   const [mutationHappened, setMutationHappened, clear] = Digit.Hooks.useSessionStorage("CITIZEN_TL_MUTATION_HAPPENED", false);
+@@ -140,6 +151,7 @@ const TLAcknowledgement = ({ data, onSuccess, onUpdateSuccess }) => {
+     <Card>
+       <BannerPicker t={t} data={mutation.data || mutation1.data} isSuccess={mutation.isSuccess || mutation1.isSuccess} isLoading={(mutation?.isLoading || mutation1?.isLoading)} />
+       {<CardText>{t("TL_FILE_TRADE_FAILED_RESPONSE")}</CardText>}
++      <ApiErrors error={mutation.error || mutation1.error} t={t} />
+       <Link to={`/upyog-ui/citizen`}>
+         <LinkButton label={t("CORE_COMMON_GO_TO_HOME")} />
+       </Link>
+@@ -154,6 +166,7 @@ const TLAcknowledgement = ({ data, onSuccess, onUpdateSuccess }) => {
+       <BannerPicker t={t} data={mutation2.data} isSuccess={mutation2.isSuccess} isLoading={(mutation2.isIdle || mutation2.isLoading)} />
+       {(mutation2.isSuccess) && <CardText>{!isDirectRenewal?t("TL_FILE_TRADE_RESPONSE"):t("TL_FILE_TRADE_RESPONSE_DIRECT_REN")}</CardText>}
+       {(!mutation2.isSuccess) && <CardText>{t("TL_FILE_TRADE_FAILED_RESPONSE")}</CardText>}
++      {(!mutation2.isSuccess) && <ApiErrors error={mutation2.error} t={t} />}
+       {!isEdit && mutation2.isSuccess && <SubmitBar label={t("TL_DOWNLOAD_ACK_FORM")} onSubmit={handleDownloadPdf} />}
+       {(mutation2.isSuccess) && isEdit && (
+         <LinkButton

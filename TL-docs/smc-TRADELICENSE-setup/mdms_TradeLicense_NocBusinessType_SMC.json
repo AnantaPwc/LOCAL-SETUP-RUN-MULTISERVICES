@@ -1,0 +1,271 @@
+{
+  "tenantId": "pg",
+  "moduleName": "TradeLicense",
+  "NocBusinessType": [
+    {
+      "code": "NOC.HEALTH.SMC-N01",
+      "srNo": "2.1",
+      "name": "Clinic / Day care",
+      "fee": null,
+      "minFee": 5000,
+      "perSqftRate": 3,
+      "validityType": "3_YEARS",
+      "offensiveDefault": false,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N02",
+      "srNo": "2.2",
+      "name": "Nursing home / Hospital / Maternity home",
+      "fee": 25000,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "3_YEARS",
+      "offensiveDefault": false,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N03",
+      "srNo": "2.3",
+      "name": "Multi-speciality hospital",
+      "fee": 25000,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "3_YEARS",
+      "offensiveDefault": false,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N04",
+      "srNo": "2.4",
+      "name": "Pathology lab",
+      "fee": 1000,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "ANNUAL",
+      "offensiveDefault": false,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N05",
+      "srNo": "2.5",
+      "name": "Medical store",
+      "fee": 1000,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "ANNUAL",
+      "offensiveDefault": false,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N06",
+      "srNo": "2.6",
+      "name": "Sonography, X-ray & diagnostic centre",
+      "fee": 1000,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "ANNUAL",
+      "offensiveDefault": false,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N07",
+      "srNo": "2.7",
+      "name": "Printing press",
+      "fee": 1000,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "ANNUAL",
+      "offensiveDefault": false,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N08",
+      "srNo": "2.8",
+      "name": "Krishi Seva Kendra (agri inputs shop)",
+      "fee": 1000,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "ANNUAL",
+      "offensiveDefault": false,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N09",
+      "srNo": "2.9",
+      "name": "Flour mill / any three-phase electricity connection",
+      "fee": 1000,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "ONE_TIME",
+      "offensiveDefault": false,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N10",
+      "srNo": "2.10",
+      "name": "Salon - Non-AC",
+      "fee": 0,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "ANNUAL",
+      "offensiveDefault": false,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N11",
+      "srNo": "2.11",
+      "name": "Salon - AC",
+      "fee": 0,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "ANNUAL",
+      "offensiveDefault": false,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N12",
+      "srNo": "2.12",
+      "name": "Beauty parlour",
+      "fee": 0,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "ANNUAL",
+      "offensiveDefault": false,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N13",
+      "srNo": "2.13",
+      "name": "Spa parlour / beauty parlour",
+      "fee": 1000,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "ANNUAL",
+      "offensiveDefault": false,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N14",
+      "srNo": "2.14",
+      "name": "Petrol pump",
+      "fee": 1000,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "ONE_TIME",
+      "offensiveDefault": false,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N15",
+      "srNo": "2.15",
+      "name": "Chicken / mutton and fish sale business",
+      "fee": 1000,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "ANNUAL",
+      "offensiveDefault": false,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N16",
+      "srNo": "2.16",
+      "name": "Welding and fabrication",
+      "fee": 1000,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "ONE_TIME",
+      "offensiveDefault": false,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N17",
+      "srNo": "2.17",
+      "name": "Aqua / packaged drinking water plant",
+      "fee": 1000,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "ONE_TIME",
+      "offensiveDefault": false,
+      "toBeVerified": true,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N18",
+      "srNo": "2.18",
+      "name": "Restaurant",
+      "fee": 1000,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "ANNUAL",
+      "offensiveDefault": false,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N19",
+      "srNo": "2.19",
+      "name": "Hotel, lodge",
+      "fee": 1000,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "ANNUAL",
+      "offensiveDefault": false,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N20",
+      "srNo": "2.20",
+      "name": "Beer bar",
+      "fee": 1000,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "ANNUAL",
+      "offensiveDefault": false,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N21",
+      "srNo": "2.21",
+      "name": "Wine shop",
+      "fee": 1000,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "ANNUAL",
+      "offensiveDefault": false,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N22",
+      "srNo": "2.22",
+      "name": "Leather industry (tannery)",
+      "fee": 1000,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "ONE_TIME",
+      "offensiveDefault": false,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N23",
+      "srNo": "2.23",
+      "name": "Pest control services",
+      "fee": 1000,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "ONE_TIME",
+      "offensiveDefault": false,
+      "active": true
+    },
+    {
+      "code": "NOC.HEALTH.SMC-N24",
+      "srNo": "2.24",
+      "name": "Ice factory",
+      "fee": 1000,
+      "minFee": null,
+      "perSqftRate": null,
+      "validityType": "ANNUAL",
+      "offensiveDefault": false,
+      "active": true
+    }
+  ]
+}

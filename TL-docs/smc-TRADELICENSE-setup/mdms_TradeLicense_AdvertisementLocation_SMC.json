@@ -1,0 +1,46 @@
+{
+  "tenantId": "pg",
+  "moduleName": "TradeLicense",
+  "AdvertisementLocation": [
+    {
+      "code": "ADVLOC-01",
+      "name": "Advertisement location 1 (sample)",
+      "ward": "Ward 1",
+      "maxBoards": 10,
+      "sample": true,
+      "active": true
+    },
+    {
+      "code": "ADVLOC-02",
+      "name": "Advertisement location 2 (sample)",
+      "ward": "Ward 2",
+      "maxBoards": 10,
+      "sample": true,
+      "active": true
+    },
+    {
+      "code": "ADVLOC-03",
+      "name": "Advertisement location 3 (sample)",
+      "ward": "Ward 3",
+      "maxBoards": 10,
+      "sample": true,
+      "active": true
+    },
+    {
+      "code": "ADVLOC-04",
+      "name": "Advertisement location 4 (sample)",
+      "ward": "Ward 4",
+      "maxBoards": 10,
+      "sample": true,
+      "active": true
+    },
+    {
+      "code": "ADVLOC-05",
+      "name": "Advertisement location 5 (sample)",
+      "ward": "Ward 5",
+      "maxBoards": 10,
+      "sample": true,
+      "active": true
+    }
+  ]
+}

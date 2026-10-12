@@ -1,0 +1,495 @@
+{
+  "RequestInfo": {
+    "apiId": "Rainmaker",
+    "authToken": "{{authToken}}"
+  },
+  "tenantId": "pg",
+  "messages": [
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS",
+      "message": "वस्तू",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES",
+      "message": "सेवा",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_MANUFACTURE",
+      "message": "उत्पादन",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_RETAIL",
+      "message": "किरकोळ विक्री",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_WHOLESALE",
+      "message": "घाऊक विक्री",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GENERAL",
+      "message": "सामान्य सेवा",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_HOSPITALITY",
+      "message": "हॉटेल, रेस्टॉरेंट व लॉजिंग",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-01",
+      "message": "मुद्रणालय / प्रिंटिंग प्रेस",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-02",
+      "message": "पिठाची गिरणी / ग्राइंडिंग मिल",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-03",
+      "message": "फाब्रीकेशन / वेल्डिंग",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-04",
+      "message": "लेथ मशीन",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-05",
+      "message": "आईस कांडी",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-06",
+      "message": "सोडा लेमन",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-07",
+      "message": "पेप्सी",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-08",
+      "message": "फरशी कटिंग",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_GENERAL_SMC-09",
+      "message": "व्हल्कनायझिंग",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-10",
+      "message": "बिडी कारखाना",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-11",
+      "message": "रवा मिल",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-12",
+      "message": "पिंजणे",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-13",
+      "message": "मोटर बॉडी बिल्डर",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_GENERAL_SMC-14",
+      "message": "सलून Non AC",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_GENERAL_SMC-15",
+      "message": "सलून AC",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_GENERAL_SMC-16",
+      "message": "स्पा सह ब्युटी पार्लर",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_GENERAL_SMC-17",
+      "message": "ब्युटी पार्लर",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_RETAIL_SMC-18",
+      "message": "रॉकेल विक्री",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_RETAIL_SMC-19",
+      "message": "बेकरी",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-20",
+      "message": "गादी कारखाना",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_RETAIL_SMC-21",
+      "message": "लेदर विक्री",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_RETAIL_SMC-22",
+      "message": "मांस विक्री",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-23",
+      "message": "चुना करणे",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_GENERAL_SMC-24",
+      "message": "बॅटरी चार्जिंग व रिपेरिंग",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-25",
+      "message": "लाकडी कोळसा",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_RETAIL_SMC-26",
+      "message": "गॅस विक्री",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_HOSPITALITY_SMC-27",
+      "message": "खानावळ / कॅंटीन",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_RETAIL_SMC-28",
+      "message": "फरसाण विक्री, स्वीट होम",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_HOSPITALITY_SMC-29",
+      "message": "रेस्टॉरेंट छोटे",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_HOSPITALITY_SMC-30",
+      "message": "रेस्टॉरेंट मोठे",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_HOSPITALITY_SMC-31",
+      "message": "रेस्टॉरेंट व बार",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_HOSPITALITY_SMC-32",
+      "message": "रेस्टॉरेंट लॉजिंग",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_HOSPITALITY_SMC-33",
+      "message": "लॉजिंग",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_GENERAL_SMC-34",
+      "message": "लॉन्ड्री",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_GENERAL_SMC-35",
+      "message": "Dry क्लिनिंग सह लॉन्ड्री",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-36",
+      "message": "चुना प्रक्रिया",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_GENERAL_SMC-37",
+      "message": "सर्व्हिस स्टेशन",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-38",
+      "message": "मसाले उत्पादन / मिरची कांडप",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-39",
+      "message": "विलेपन",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-40",
+      "message": "फर्निचर",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_WHOLESALE_SMC-41",
+      "message": "वखार",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_RETAIL_SMC-42",
+      "message": "शोभेची दारू विक्री",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_RETAIL_SMC-43",
+      "message": "पेट्रोल पंप",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MANUFACTURE_SMC-44",
+      "message": "मुरमुरे बनविणे",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_HOSPITALITY_SMC-45",
+      "message": "लॉजिंग व बार",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_GENERAL_SMC-46",
+      "message": "कलर फोटो लॅब",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_GENERAL_SMC-47",
+      "message": "व्हील आलायमेंट",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_HOSPITALITY_SMC-48",
+      "message": "हॉटेल मोठे",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_HOSPITALITY_SMC-49",
+      "message": "हॉटेल छोटे",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_HOSPITALITY_SMC-50",
+      "message": "हॉटेल व बार",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_HOSPITALITY_SMC-51",
+      "message": "हॉटेल व लॉजिंग",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_RETAIL_SMC-52",
+      "message": "देशी दारू दुकान",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_RETAIL_SMC-53",
+      "message": "वाईन शॉप",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_MOVABLE",
+      "message": "फिरता व्यवसाय",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M01",
+      "message": "पान शॉप",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M02",
+      "message": "वडापाव विक्री",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M03",
+      "message": "चहा विक्री",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M04",
+      "message": "आर्टिफिशियल ज्वेलरी",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M05",
+      "message": "आईस्क्रीम विक्री",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M06",
+      "message": "पावभाजी व पिझ्झा",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M07",
+      "message": "लाकडी तेल घाणा",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M08",
+      "message": "ऑम्लेट पाव",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M09",
+      "message": "इडली व डोसा",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M10",
+      "message": "वडापाव व चहा",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M11",
+      "message": "देशी दारू दुकान",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M12",
+      "message": "केक विक्री",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_MOVABLE_SMC-M13",
+      "message": "लॉन्ड्री",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_MOVABLE_SMC-M14",
+      "message": "वेल्डिंग व फॅब्रिकेशन",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M15",
+      "message": "पावभाजी",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M16",
+      "message": "समोसा शॉप",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M17",
+      "message": "पाणीपुरी",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_GOODS_MOVABLE_SMC-M18",
+      "message": "भेळ विक्री",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_MOVABLE_SMC-M19",
+      "message": "फॅब्रिकेशन",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TRADELICENSE_TRADETYPE_SERVICES_MOVABLE_SMC-M20",
+      "message": "ब्युटी पार्लर",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    }
+  ]
+}

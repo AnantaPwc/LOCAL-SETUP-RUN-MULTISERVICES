@@ -1,0 +1,23 @@
+﻿{
+    "RequestInfo":  {
+                        "apiId":  "Rainmaker",
+                        "authToken":  "not-checked-locally",
+                        "msgId":  "local|en_IN",
+                        "userInfo":  {
+                                         "id":  17253,
+                                         "uuid":  "57a3e9c0-fc9e-480c-bf12-2d6a964d134c",
+                                         "userName":  "8908011908",
+                                         "name":  "OWNER",
+                                         "mobileNumber":  "8908011908",
+                                         "type":  "CITIZEN",
+                                         "tenantId":  "pg",
+                                         "roles":  [
+                                                       {
+                                                           "code":  "CITIZEN",
+                                                           "name":  "CITIZEN",
+                                                           "tenantId":  "pg"
+                                                       }
+                                                   ]
+                                     }
+                    }
+}

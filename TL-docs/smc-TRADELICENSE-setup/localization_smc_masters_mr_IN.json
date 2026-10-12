@@ -1,0 +1,99 @@
+{
+  "RequestInfo": {
+    "apiId": "Rainmaker",
+    "authToken": "{{authToken}}"
+  },
+  "tenantId": "pg",
+  "messages": [
+    {
+      "code": "COMMON_MASTERS_STRUCTURETYPE_MOVABLE_HANDCART",
+      "message": "हातगाडी",
+      "module": "rainmaker-common",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "COMMON_MASTERS_STRUCTURETYPE_MOVABLE_VEHICLE",
+      "message": "वाहन",
+      "module": "rainmaker-common",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "COMMON_MASTERS_STRUCTURETYPE_MOVABLE_STALL",
+      "message": "स्टॉल",
+      "module": "rainmaker-common",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_NEW_SEVENTWELVEEXTRACT",
+      "message": "चालू ७/१२ उतारा / सिटी सर्व्हे उतारा",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_NEW_PROPERTYEXTRACT",
+      "message": "मालमत्ता उतारा",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_NEW_AADHAARCARD",
+      "message": "आधार कार्ड",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_NEW_PROPERTYTAXRECEIPT",
+      "message": "मालमत्ता कर बिल व भरणा पावती",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_NEW_LANDOWNERCONSENT",
+      "message": "जागामालकाचे संमतीपत्र",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_NEW_SHOPACTLICENSE",
+      "message": "शॉप ॲक्ट परवाना",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_NEW_PREVIOUSLICENSE",
+      "message": "मागील परवान्याची प्रत",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_LEGALSTATUS_OWNED",
+      "message": "स्वमालकीची",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_LEGALSTATUS_RENTED",
+      "message": "भाड्याची",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_LEGALSTATUS_LEASED",
+      "message": "भाडेपट्ट्याची",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "TL_LEGALSTATUS_OTHER",
+      "message": "इतर",
+      "module": "rainmaker-tl",
+      "locale": "mr_IN"
+    },
+    {
+      "code": "ACCESSCONTROL_ROLES_ROLES_TL_HOD",
+      "message": "परवाना विभाग प्रमुख",
+      "module": "rainmaker-common",
+      "locale": "mr_IN"
+    }
+  ]
+}
